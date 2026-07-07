@@ -1,229 +1,136 @@
-"""CM Finance Recovery — command line entrypoint.
+"""CM Finance Recovery v1.0 — pipeline entrypoint.
 
-Leest inkoopfacturen in (uit een Moneybird Excel-export of live via de API),
-classificeert ze, matcht ontbrekende leveranciers, en produceert een rapport met
-werklijsten. Standaard draait alles als **dry-run**: er wordt niets in Moneybird
-gewijzigd. Pas met `--apply` worden auto-matches teruggeschreven.
+Draai de volledige pipeline met één commando:
 
-Voorbeelden:
+    python app.py
 
-    # Analyse van een export (geen API nodig):
-    python app.py --source excel --invoices ../inkoop.xlsx
-
-    # Live tegen Moneybird (leest credentials uit .env), nog steeds dry-run:
-    python app.py --source api
-
-    # Live én auto-matches wegschrijven:
-    python app.py --source api --apply
+Stappen: import/sync -> analyse -> ledger-matching -> confidence -> routing ->
+review-queue. Alle output komt in `reports/`. De pipeline draait volledig
+offline op de meegeleverde Moneybird sync-JSON; er zijn geen secrets of netwerk
+nodig. De run eindigt met `KLAAR`.
 """
 
 from __future__ import annotations
 
-import argparse
 import csv
+import os
 import sys
-from collections import Counter
 from pathlib import Path
-from typing import Optional, Sequence
+
+# Zorg dat de projectmap altijd importeerbaar is, ongeacht de werkmap.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from config import Config
-from matcher import MatchResult, SupplierMatcher
-from moneybird import (
-    MoneybirdClient,
-    PurchaseInvoice,
-    load_invoices_from_excel,
-)
-from rules import Classification, Issue, classify_all
+from database.models import Route, Document
+from database.repository import DocumentRepository
+from importers.loader import sync
+from engine.analyzer import analyze_all
+from engine.ledger_matcher import match_all
+from engine.confidence import score_all
+from engine.router import route_all
+from engine.review_queue import ReviewQueue
 
 
-def _load_invoices(args: argparse.Namespace, config: Config) -> tuple[list[PurchaseInvoice], list[str]]:
-    """Geef (facturen, contactnamen) terug op basis van de gekozen bron."""
-    if args.source == "excel":
-        if not args.invoices:
-            raise SystemExit("--invoices <pad naar inkoop.xlsx> is verplicht bij --source excel")
-        invoices = load_invoices_from_excel(args.invoices)
-        contact_names: list[str] = []
-        if args.contacts:
-            # Optioneel: contacten uit de export halen die wél een contact hebben.
-            contact_names = sorted({inv.contact for inv in invoices if inv.contact})
-        else:
-            contact_names = sorted({inv.contact for inv in invoices if inv.contact})
-        return invoices, contact_names
-
-    # source == "api"
-    client = MoneybirdClient(config)
-    invoices = list(client.iter_purchase_invoices())
-    raw_contacts = client.list_contacts()
-    contact_names = sorted(
-        {
-            (c.get("company_name") or c.get("full_name") or "").strip()
-            for c in raw_contacts
-            if (c.get("company_name") or c.get("full_name"))
-        }
-    )
-    return invoices, contact_names
-
-
-def _print_summary(classifications: Sequence[Classification], matches: dict[str, MatchResult]) -> None:
-    total = len(classifications)
-    issue_counter: Counter[Issue] = Counter()
-    for c in classifications:
-        for issue in c.issues:
-            issue_counter[issue] += 1
-
-    decision_counter: Counter[str] = Counter(m.decision for m in matches.values())
-
-    print("=" * 60)
-    print("CM FINANCE RECOVERY — samenvatting")
-    print("=" * 60)
-    print(f"Inkoopfacturen totaal      : {total}")
-    print(f"  zonder leverancier       : {issue_counter[Issue.MISSING_CONTACT]}")
-    print(f"  zonder bedrag            : {issue_counter[Issue.MISSING_AMOUNT]}")
-    print(f"  mogelijk dubbel          : {issue_counter[Issue.POSSIBLE_DUPLICATE]}")
-    print(f"  btw-aangifte/document    : {issue_counter[Issue.TAX_RETURN]}")
-    print(f"  onverwerkt (status=new)  : {issue_counter[Issue.UNPROCESSED]}")
-    print(f"  geen issues (ok)         : {issue_counter[Issue.OK]}")
-    print("-" * 60)
-    print("Leverancier-matching (voor facturen zonder contact):")
-    print(f"  auto-koppelbaar          : {decision_counter.get('auto', 0)}")
-    print(f"  handmatige review        : {decision_counter.get('review', 0)}")
-    print(f"  geen match               : {decision_counter.get('none', 0)}")
-    print("=" * 60)
-
-
-def _write_report(
-    output_dir: Path,
-    classifications: Sequence[Classification],
-    matches: dict[str, MatchResult],
-) -> Path:
-    output_dir.mkdir(parents=True, exist_ok=True)
-    report_path = output_dir / "recovery_report.csv"
-    with report_path.open("w", newline="", encoding="utf-8") as fh:
+def _write_csv(path: Path, header: list[str], rows: list[list]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh)
-        writer.writerow(
-            [
-                "id",
-                "datum",
-                "referentie",
-                "contact",
-                "bedrag_incl_btw_eur",
-                "issues",
-                "primair_issue",
-                "match_kandidaat",
-                "match_contact",
-                "match_score",
-                "match_beslissing",
-            ]
-        )
-        for c in classifications:
-            inv = c.invoice
-            m = matches.get(inv.id)
-            writer.writerow(
-                [
-                    inv.id,
-                    inv.date or "",
-                    inv.reference or "",
-                    inv.contact or "",
-                    inv.amount_inc_vat_eur if inv.amount_inc_vat_eur is not None else "",
-                    "|".join(i.value for i in c.issues),
-                    c.primary_issue.value,
-                    (m.candidate_name if m else "") or "",
-                    (m.matched_contact if m else "") or "",
-                    (m.score if m else "") if m else "",
-                    (m.decision if m else "") or "",
-                ]
-            )
-    return report_path
+        writer.writerow(header)
+        writer.writerows(rows)
+    return path
 
 
-def _apply_matches(
-    client: MoneybirdClient,
-    matches: dict[str, MatchResult],
-    raw_contacts: Optional[list[dict]] = None,
-) -> int:
-    """Schrijf auto-matches terug naar Moneybird. Geeft aantal bijgewerkte facturen terug.
-
-    NB: het koppelen van een contact vereist het Moneybird `contact_id`. Dit
-    wordt afgeleid uit de contactnaam. Alleen 'auto'-beslissingen worden
-    weggeschreven; review/none blijven handmatig.
-    """
-    name_to_id: dict[str, str] = {}
-    for c in raw_contacts or client.list_contacts():
-        name = (c.get("company_name") or c.get("full_name") or "").strip()
-        if name:
-            name_to_id.setdefault(name, str(c.get("id")))
-
-    updated = 0
-    for match in matches.values():
-        if match.decision != "auto" or not match.matched_contact:
-            continue
-        contact_id = name_to_id.get(match.matched_contact)
-        if not contact_id:
-            continue
-        client.update_purchase_invoice(match.invoice_id, {"contact_id": contact_id})
-        updated += 1
-    return updated
-
-
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CM Finance Recovery")
-    parser.add_argument(
-        "--source",
-        choices=["excel", "api"],
-        default="excel",
-        help="Databron: Moneybird Excel-export of live API (standaard: excel).",
+def _report_analysis(config: Config, docs: list[Document]) -> Path:
+    rows = [
+        [d.id, d.parsed_date or "", d.reference, d.doc_type,
+         d.supplier or "", d.period or "", "|".join(d.flags)]
+        for d in docs
+    ]
+    return _write_csv(
+        config.reports_dir / "document_analysis.csv",
+        ["id", "datum", "referentie", "type", "leverancier", "periode", "flags"],
+        rows,
     )
-    parser.add_argument("--invoices", help="Pad naar inkoop.xlsx (bij --source excel).")
-    parser.add_argument(
-        "--contacts",
-        help="Optioneel pad naar een contactenexport (anders afgeleid uit de facturen).",
+
+
+def _report_ledgers(config: Config, docs: list[Document]) -> Path:
+    rows = [
+        [d.id, d.reference, d.doc_type, d.ledger_code or "",
+         d.ledger_name or "", f"{d.ledger_score:.3f}"]
+        for d in docs
+    ]
+    return _write_csv(
+        config.reports_dir / "document_ledgers.csv",
+        ["id", "referentie", "type", "ledger_code", "ledger_name", "ledger_score"],
+        rows,
     )
-    parser.add_argument(
-        "--apply",
-        action="store_true",
-        help="Schrijf auto-matches terug naar Moneybird (alleen bij --source api). "
-        "Zonder deze vlag draait alles als dry-run.",
+
+
+def _report_routed(config: Config, docs: list[Document]) -> Path:
+    rows = [
+        [d.id, d.reference, d.doc_type, d.ledger_code or "",
+         f"{d.confidence:.3f}", d.route or "", d.review_reason or ""]
+        for d in docs
+    ]
+    return _write_csv(
+        config.reports_dir / "document_routed.csv",
+        ["id", "referentie", "type", "ledger_code", "confidence", "route", "review_reason"],
+        rows,
     )
-    parser.add_argument("--output-dir", help="Map voor rapporten (standaard uit config).")
-    return parser
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
-    args = build_parser().parse_args(argv)
-    config = Config()
-    if args.output_dir:
-        object.__setattr__(config, "output_dir", Path(args.output_dir))
+def run(config: Config | None = None) -> int:
+    config = config or Config()
+    config.ensure_dirs()
 
-    invoices, contact_names = _load_invoices(args, config)
-    if not invoices:
-        print("Geen inkoopfacturen gevonden.")
-        return 0
+    print("=" * 60)
+    print("CM FINANCE RECOVERY v1.0")
+    print("=" * 60)
 
-    classifications = classify_all(invoices)
+    # 1. Import / sync
+    result = sync(config)
+    docs = result.documents
+    print(f"IMPORT   : sync via {result.source} — {result.deduped_count} documenten "
+          f"(van {result.raw_count} ruw)")
 
-    matcher = SupplierMatcher(contact_names, config)
-    # Alleen matchen voor facturen zonder contact — daar zit de winst.
-    matches: dict[str, MatchResult] = {}
-    for c in classifications:
-        if Issue.MISSING_CONTACT in c.issues:
-            matches[c.invoice.id] = matcher.match(c.invoice)
+    # 2. Persistente opslag (SQLite)
+    with DocumentRepository(config.database_file) as repo:
+        repo.reset()
 
-    _print_summary(classifications, matches)
-    report_path = _write_report(config.output_dir, classifications, matches)
-    print(f"\nRapport geschreven naar: {report_path}")
+        # 3. Analyse
+        analyze_all(docs)
+        analysis_path = _report_analysis(config, docs)
+        print(f"ANALYZE  : {len(docs)} documenten geclassificeerd -> {analysis_path.name}")
 
-    if args.apply:
-        if args.source != "api":
-            print("\n--apply wordt genegeerd: alleen beschikbaar bij --source api.", file=sys.stderr)
-        else:
-            client = MoneybirdClient(config)
-            updated = _apply_matches(client, matches)
-            print(f"\n{updated} inkoopfacturen bijgewerkt in Moneybird.")
-    else:
-        print("\nDry-run: er is niets in Moneybird gewijzigd. Gebruik --source api --apply om te schrijven.")
+        # 4. Ledger-matching
+        match_all(docs)
+        ledgers_path = _report_ledgers(config, docs)
+        matched = sum(1 for d in docs if d.ledger_code)
+        print(f"LEDGER   : {matched}/{len(docs)} gekoppeld aan grootboek -> {ledgers_path.name}")
 
+        # 5. Confidence + 6. Routing
+        score_all(docs)
+        route_all(docs, config.auto_threshold)
+        routed_path = _report_routed(config, docs)
+        repo.save_many(docs)
+
+        auto = sum(1 for d in docs if d.route == Route.AUTO)
+        manual = sum(1 for d in docs if d.route == Route.MANUAL)
+        print(f"ROUTING  : AUTO {auto}, MANUAL {manual} "
+              f"(drempel {config.auto_threshold:.2f}) -> {routed_path.name}")
+
+        # 7. Review-queue
+        queue = ReviewQueue.from_documents(docs)
+        queue_path = queue.save(config.reports_dir / "review_queue.csv")
+        print(f"REVIEW   : {len(queue)} items in review-queue -> {queue_path.name}")
+        top_reasons = ", ".join(f"{r} ({n})" for r, n in queue.reasons().most_common(3))
+        if top_reasons:
+            print(f"           topredenen: {top_reasons}")
+
+    print("-" * 60)
+    print("KLAAR")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(run())

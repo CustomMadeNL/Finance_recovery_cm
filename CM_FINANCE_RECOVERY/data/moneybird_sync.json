@@ -1,0 +1,344 @@
+{
+  "source": "moneybird",
+  "administration": "custommade",
+  "object": "documents/general_documents",
+  "synced_documents": 42,
+  "documents": [
+    {
+      "id": "490032796645983309",
+      "reference": "2021-04-26 Factuur van Nordic Nest_ Kleine aanschaffen kantoor",
+      "date": "2026-06-15",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489952973407913779",
+      "reference": "2021-02-24 Factuur van Het Catshuis_ Inkopen artikelgroep 1",
+      "date": "2026-06-14",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489952537580930559",
+      "reference": "AangifteOmzetbelastingApril2021-Juni2021",
+      "date": "2026-06-14",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489951267192308991",
+      "reference": "2022-03-30 file_2024-06-28_12_05_41_0",
+      "date": "2026-06-14",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752298632775140",
+      "reference": "2023-09-30 Aangifte omzetbelasting Juli 2023 - September 2023",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752297556936114",
+      "reference": "2023-06-30 Aangifte omzetbelasting April 2023 - Juni 2023",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752296261944583",
+      "reference": "2022-12-31 Aangifte omzetbelasting Suppletie 2022 1",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752294765627062",
+      "reference": "2023-03-31 Aangifte omzetbelasting Januari 2023 - Maart 2023",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752293836588655",
+      "reference": "2022-12-31 Aangifte omzetbelasting Suppletie 2022 2",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752293053302280",
+      "reference": "2022-12-31 Aangifte omzetbelasting Suppletie 2022",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752292243801348",
+      "reference": "2022-12-31 Aangifte omzetbelasting Oktober 2022 - December 2022",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752290953005026",
+      "reference": "2023-12-31 Aangifte omzetbelasting Suppletie 2023 2",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752289190348045",
+      "reference": "2023-12-31 Aangifte omzetbelasting Suppletie 2023",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752287170791393",
+      "reference": "2024-12-31 Aangifte omzetbelasting Suppletie 2024",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752286469294032",
+      "reference": "2022-09-30 Aangifte omzetbelasting Juli 2022 - September 2022",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752285521381292",
+      "reference": "2022-03-31 Aangifte omzetbelasting Januari 2022 - Maart 2022",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752284510553501",
+      "reference": "2022-06-30 Aangifte omzetbelasting April 2022 - Juni 2022",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752283595146591",
+      "reference": "2023-12-31 Aangifte omzetbelasting Suppletie 2023 1",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489740952868488765",
+      "reference": "12-06-2026 - 16:09:49",
+      "date": "2026-06-12",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489947390508271509",
+      "reference": "20252383 Brief CustomMade - Damste advocaten-notarissen",
+      "date": "2025-11-20",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489952437737621496",
+      "reference": "Aangifte inkomstenbelasting CM 2022",
+      "date": "2025-11-03",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489950598952650228",
+      "reference": "Aangifte inkomstenbelasting CM 2023",
+      "date": "2025-11-03",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489949131543938187",
+      "reference": "Aangifte inkomstenbelasting CM 2024",
+      "date": "2025-11-03",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489947332581787645",
+      "reference": "20251029 Vonnis Custommade Mussendijk",
+      "date": "2025-10-29",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489741076544882648",
+      "reference": "12-06-2026 - 16:11:47",
+      "date": "2025-02-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752282975438149",
+      "reference": "2024-12-31 Aangifte omzetbelasting Oktober 2024 - December 2024",
+      "date": "2025-01-30",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489948833754645678",
+      "reference": "Loonaangifte_2024_140075653L02_11_1",
+      "date": "2024-11-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752282085197061",
+      "reference": "2024-09-30 Aangifte omzetbelasting Juli 2024 - September 2024",
+      "date": "2024-10-30",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489948836147496224",
+      "reference": "Loonaangifte_2024_140075653L02_10_1",
+      "date": "2024-10-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489948841515157063",
+      "reference": "Loonaangifte_2024_140075653L02_8_1",
+      "date": "2024-08-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752289881359656",
+      "reference": "2024-06-30 Aangifte omzetbelasting April 2024 - Juni 2024",
+      "date": "2024-07-25",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489949118288889770",
+      "reference": "Btw-aangifte__2024_05-12-2024_15.30u",
+      "date": "2024-07-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489948844149180095",
+      "reference": "Loonaangifte_2024_140075653L02_7_1",
+      "date": "2024-07-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489948848982067099",
+      "reference": "Loonaangifte_2024_140075653L02_6_1",
+      "date": "2024-06-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489948852876478442",
+      "reference": "Loonaangifte_2024_140075653L02_5_1",
+      "date": "2024-05-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489949126238143523",
+      "reference": "Herstelrapport_Custommade_Agency_2020-2024",
+      "date": "2024-04-30",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752281132041415",
+      "reference": "2024-03-31 Aangifte omzetbelasting Januari 2024 - Maart 2024",
+      "date": "2024-04-30",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489949116358461319",
+      "reference": "Btw-aangifte__2024_05-12-2024_15.30u 2",
+      "date": "2024-04-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489948856333632627",
+      "reference": "Loonaangifte_2024_140075653L02_4_1",
+      "date": "2024-04-01",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752288603145385",
+      "reference": "2024-05-06 aangifte brief omzetbelasting",
+      "date": "2024-03-31",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752280580490416",
+      "reference": "2024-03-19 BTW-aangifte 2024",
+      "date": "2024-03-31",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    },
+    {
+      "id": "489752287794693195",
+      "reference": "2023-12-31 Aangifte omzetbelasting Oktober 2023 - December 2023",
+      "date": "2024-01-30",
+      "due_date": null,
+      "contact": null,
+      "contact_number": null
+    }
+  ]
+}

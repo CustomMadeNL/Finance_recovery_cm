@@ -1,5 +1,8 @@
+# CM Finance Recovery v1.0
+# De pipeline (python app.py) draait op de Python-standaardbibliotheek:
+# sqlite3, csv, json, re, difflib, dataclasses, pathlib. Geen installatie nodig.
+#
+# Onderstaande pakketten zijn OPTIONEEL en alleen nodig voor een live
+# Moneybird-sync (loader valt zonder deze pakketten stil terug op de sync-JSON):
 requests
 python-dotenv
-pandas
-openpyxl
-rapidfuzz
