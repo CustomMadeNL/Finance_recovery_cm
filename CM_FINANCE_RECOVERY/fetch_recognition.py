@@ -1,4 +1,8 @@
-"""Haal de door Moneybird herkende leverancier + bedrag per factuur op.
+"""Haal de door Moneybird herkende leverancier + bedrag per inkoopdocument op.
+
+Dekt de volledige Inkoop-backlog: inkoopfacturen, bonnetjes (receipts) én
+algemene documenten — samen de ~1500 documenten die Moneybird onder "Inkoop"
+toont, niet alleen de openstaande todo's.
 
 Genereert `data/moneybird_recognition.json` in het formaat dat de
 verrijkingsstap (`importers/loader.enrich`) verwacht. Draai dit één keer zodra
@@ -60,15 +64,25 @@ def _amount_from(payload: dict[str, Any]) -> Optional[float]:
     return None
 
 
-def _iter_purchase_invoices(session, base: str, page_size: int = 100):
+# De Moneybird-"Inkoop"-backlog is verdeeld over meerdere document-typen, elk op
+# een eigen endpoint. De UI telt ze samen; het loont dus om ze alle drie op te
+# halen (facturen zijn maar ~2/3 van het totaal, de rest zijn bonnetjes).
+_DOCUMENT_ENDPOINTS = (
+    "documents/purchase_invoices",   # inkoopfacturen
+    "documents/receipts",            # bonnetjes / kassabonnen
+    "documents/general_documents",   # algemene documenten (aangiftes e.d.)
+)
+
+
+def _iter_documents(session, base: str, endpoint: str, page_size: int = 100):
     # Zonder expliciete filter geeft de Moneybird-API alleen de "todo"-subset
-    # terug (openstaande/te-verwerken facturen — bevestigd via de response-header
+    # terug (openstaande/te-verwerken documenten — bevestigd via de response-header
     # `x-total-count`). Voor een recovery-traject willen we juist de volledige
     # backlog, dus dwingen we `state:all` af.
     page = 1
     while True:
         resp = session.get(
-            f"{base}/documents/purchase_invoices.json",
+            f"{base}/{endpoint}.json",
             params={"page": page, "per_page": page_size, "filter": "state:all"},
             timeout=30,
         )
@@ -98,24 +112,25 @@ def fetch(config: Config, dump_raw: bool = False) -> dict[str, dict]:
 
     recognition: dict[str, dict] = {}
     first = True
-    for inv in _iter_purchase_invoices(session, base):
-        if dump_raw and first:
-            print("--- ruwe API-respons (eerste factuur) ---")
-            print(json.dumps(inv, indent=2, ensure_ascii=False)[:2000])
-            print("--- einde ruwe respons ---\n")
-            first = False
-        doc_id = str(inv.get("id") or "").strip()
-        if not doc_id:
-            continue
-        supplier = _supplier_from(inv)
-        entry: dict[str, Any] = {}
-        if supplier:
-            entry["supplier"] = supplier
-        amount = _amount_from(inv)
-        if amount is not None:
-            entry["amount"] = amount
-        if entry:
-            recognition[doc_id] = entry
+    for endpoint in _DOCUMENT_ENDPOINTS:
+        for inv in _iter_documents(session, base, endpoint):
+            if dump_raw and first:
+                print(f"--- ruwe API-respons (eerste document, {endpoint}) ---")
+                print(json.dumps(inv, indent=2, ensure_ascii=False)[:2000])
+                print("--- einde ruwe respons ---\n")
+                first = False
+            doc_id = str(inv.get("id") or "").strip()
+            if not doc_id:
+                continue
+            supplier = _supplier_from(inv)
+            entry: dict[str, Any] = {}
+            if supplier:
+                entry["supplier"] = supplier
+            amount = _amount_from(inv)
+            if amount is not None:
+                entry["amount"] = amount
+            if entry:
+                recognition[doc_id] = entry
     return recognition
 
 
@@ -146,14 +161,14 @@ def main(argv: Optional[list[str]] = None) -> int:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "source": "moneybird-api",
-        "object": "documents/purchase_invoices",
+        "objects": list(_DOCUMENT_ENDPOINTS),
         "recognized_documents": len(recognition),
         "documents": recognition,
     }
     with out_path.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
 
-    print(f"KLAAR: {len(recognition)} facturen met herkende data -> {out_path}")
+    print(f"KLAAR: {len(recognition)} documenten met herkende data -> {out_path}")
     print("Draai nu 'python app.py' om de verrijking toe te passen.")
     return 0
 
