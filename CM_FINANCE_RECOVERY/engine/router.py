@@ -1,8 +1,15 @@
 """Routing: bepaal per document AUTO (straight-through) of MANUAL (review).
 
-Een document gaat alleen AUTO als de confidence de auto-drempel haalt, er een
-grootboekrekening is gekoppeld, en er geen blokkerende flags staan. Al het
-andere gaat naar de review-queue met een leesbare reden.
+Een document gaat alleen AUTO als:
+  1. de confidence de auto-drempel haalt,
+  2. er een grootboekrekening is gekoppeld,
+  3. er geen blokkerende flags staan, en
+  4. het document uit het lopende boekjaar komt.
+
+De vierde regel is bewust voor een recovery-traject: alleen actuele, schone
+aangiftes worden straight-through verwerkt; historische backlog (oudere jaren)
+en documenten zonder af te leiden boekjaar gaan naar de review-queue. Het
+lopende boekjaar staat in `config.fiscal_year` (env `CM_FISCAL_YEAR`).
 """
 
 from __future__ import annotations
@@ -23,20 +30,37 @@ _REASON_BY_FLAG = {
 }
 
 
-def _review_reason(doc: Document, auto_threshold: float) -> str:
+def _tag_fiscal_year(doc: Document, fiscal_year: int) -> None:
+    """Zet HISTORICAL / NO_FISCAL_YEAR op basis van het boekjaar."""
+    if doc.ref_year is None:
+        doc.add_flag(Flag.NO_FISCAL_YEAR)
+    elif doc.ref_year < fiscal_year:
+        doc.add_flag(Flag.HISTORICAL)
+
+
+def _review_reason(doc: Document, fiscal_year: int, auto_threshold: float) -> str:
+    if Flag.HISTORICAL in doc.flags:
+        return f"historisch boekjaar {doc.ref_year} (< {fiscal_year})"
     for flag in (Flag.UNKNOWN_TYPE, Flag.AMBIGUOUS, Flag.NO_LEDGER,
                  Flag.DUPLICATE_SUFFIX, Flag.MISSING_DATE):
         if flag in doc.flags:
             return _REASON_BY_FLAG[flag]
+    if Flag.NO_FISCAL_YEAR in doc.flags:
+        return "geen boekjaar af te leiden uit de referentie"
     if doc.confidence < auto_threshold:
         return f"confidence {doc.confidence:.2f} < drempel {auto_threshold:.2f}"
     return "handmatige controle vereist"
 
 
-def route(doc: Document, auto_threshold: float) -> Document:
+def route(doc: Document, fiscal_year: int, auto_threshold: float) -> Document:
+    _tag_fiscal_year(doc, fiscal_year)
+
     blocked = any(flag in doc.flags for flag in _BLOCKING_FLAGS)
+    current_year = doc.ref_year == fiscal_year
+
     if (
         not blocked
+        and current_year
         and doc.ledger_code is not None
         and doc.confidence >= auto_threshold
     ):
@@ -44,9 +68,9 @@ def route(doc: Document, auto_threshold: float) -> Document:
         doc.review_reason = None
     else:
         doc.route = Route.MANUAL
-        doc.review_reason = _review_reason(doc, auto_threshold)
+        doc.review_reason = _review_reason(doc, fiscal_year, auto_threshold)
     return doc
 
 
-def route_all(documents: list[Document], auto_threshold: float) -> list[Document]:
-    return [route(doc, auto_threshold) for doc in documents]
+def route_all(documents: list[Document], fiscal_year: int, auto_threshold: float) -> list[Document]:
+    return [route(doc, fiscal_year, auto_threshold) for doc in documents]

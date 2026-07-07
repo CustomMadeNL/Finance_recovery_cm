@@ -37,6 +37,8 @@ class Flag:
     AMBIGUOUS = "ambiguous"
     DUPLICATE_SUFFIX = "duplicate_suffix"
     NO_LEDGER = "no_ledger"
+    HISTORICAL = "historical"        # ouder dan het lopende boekjaar (recovery-backlog)
+    NO_FISCAL_YEAR = "no_fiscal_year"  # geen boekjaar af te leiden uit de referentie
 
 
 @dataclass
@@ -56,6 +58,7 @@ class Document:
     supplier: Optional[str] = None
     period: Optional[str] = None
     parsed_date: Optional[str] = None
+    ref_year: Optional[int] = None  # expliciet boekjaar uit de referentie (niet de sync-datum)
 
     # Ledger-matching
     ledger_code: Optional[str] = None
@@ -112,6 +115,7 @@ CREATE TABLE IF NOT EXISTS documents (
     supplier       TEXT,
     period         TEXT,
     parsed_date    TEXT,
+    ref_year       INTEGER,
     ledger_code    TEXT,
     ledger_name    TEXT,
     ledger_score   REAL,

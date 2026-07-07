@@ -16,7 +16,7 @@ from database.models import SCHEMA, Document
 
 _COLUMNS = [
     "id", "reference", "date", "due_date", "contact", "contact_number",
-    "amount", "doc_type", "supplier", "period", "parsed_date",
+    "amount", "doc_type", "supplier", "period", "parsed_date", "ref_year",
     "ledger_code", "ledger_name", "ledger_score", "confidence",
     "route", "review_reason", "flags",
 ]
@@ -30,6 +30,9 @@ class DocumentRepository:
         self._path.parent.mkdir(parents=True, exist_ok=True)
         self._conn = sqlite3.connect(str(self._path))
         self._conn.row_factory = sqlite3.Row
+        # Wegwerp-cache: schema vers opbouwen zodat schemawijzigingen tussen
+        # runs nooit een oude tabel achterlaten.
+        self._conn.execute("DROP TABLE IF EXISTS documents")
         self._conn.executescript(SCHEMA)
 
     def reset(self) -> None:
@@ -42,9 +45,9 @@ class DocumentRepository:
         return (
             doc.id, doc.reference, doc.date, doc.due_date, doc.contact,
             doc.contact_number, doc.amount, doc.doc_type, doc.supplier,
-            doc.period, doc.parsed_date, doc.ledger_code, doc.ledger_name,
-            doc.ledger_score, doc.confidence, doc.route, doc.review_reason,
-            json.dumps(doc.flags, ensure_ascii=False),
+            doc.period, doc.parsed_date, doc.ref_year, doc.ledger_code,
+            doc.ledger_name, doc.ledger_score, doc.confidence, doc.route,
+            doc.review_reason, json.dumps(doc.flags, ensure_ascii=False),
         )
 
     @staticmethod

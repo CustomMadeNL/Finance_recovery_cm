@@ -68,6 +68,30 @@ def _parse_period(reference: str) -> Optional[str]:
     return f"{start} {start_year} - {end} {end_year}"
 
 
+def _ref_year(reference: str, parsed_date: Optional[str]) -> Optional[int]:
+    """Bepaal het boekjaar uit de referentie zelf (niet de sync-datum).
+
+    Prioriteit: leidende datum -> periode-eindjaar -> los jaartal in de titel.
+    """
+    m = _ISO_DATE.search(reference)
+    if m:
+        return int(m.group(1))
+    m = _NL_DATE.search(reference)
+    if m:
+        return int(m.group(3))
+    m = _PERIOD.search(reference)
+    if m and m.group(4):
+        return int(m.group(4))
+    # Fallback: een los 4-cijferig jaartal-token (19xx/20xx), ook als het met
+    # underscores aan andere tekst vastzit (bv. "Loonaangifte_2024_..."). Losse
+    # tokens voorkomen dat lange nummers als "20251029" een schijnjaar opleveren.
+    candidate: Optional[int] = None
+    for tok in re.split(r"[^0-9]+", reference):
+        if len(tok) == 4 and tok[:2] in ("19", "20"):
+            candidate = int(tok)
+    return candidate
+
+
 def _extract_supplier(reference: str) -> Optional[str]:
     m = _SUPPLIER.search(reference)
     if not m:
@@ -83,6 +107,7 @@ def analyze(doc: Document) -> Document:
     doc.doc_type = _classify(ref)
     doc.parsed_date = _parse_date(ref, doc.date)
     doc.period = _parse_period(ref)
+    doc.ref_year = _ref_year(ref, doc.parsed_date)
 
     if doc.doc_type == DocType.PURCHASE_INVOICE:
         doc.supplier = _extract_supplier(ref)

@@ -42,13 +42,13 @@ def _write_csv(path: Path, header: list[str], rows: list[list]) -> Path:
 
 def _report_analysis(config: Config, docs: list[Document]) -> Path:
     rows = [
-        [d.id, d.parsed_date or "", d.reference, d.doc_type,
+        [d.id, d.parsed_date or "", d.ref_year or "", d.reference, d.doc_type,
          d.supplier or "", d.period or "", "|".join(d.flags)]
         for d in docs
     ]
     return _write_csv(
         config.reports_dir / "document_analysis.csv",
-        ["id", "datum", "referentie", "type", "leverancier", "periode", "flags"],
+        ["id", "datum", "boekjaar", "referentie", "type", "leverancier", "periode", "flags"],
         rows,
     )
 
@@ -110,14 +110,15 @@ def run(config: Config | None = None) -> int:
 
         # 5. Confidence + 6. Routing
         score_all(docs)
-        route_all(docs, config.auto_threshold)
+        route_all(docs, config.fiscal_year, config.auto_threshold)
         routed_path = _report_routed(config, docs)
         repo.save_many(docs)
 
         auto = sum(1 for d in docs if d.route == Route.AUTO)
         manual = sum(1 for d in docs if d.route == Route.MANUAL)
         print(f"ROUTING  : AUTO {auto}, MANUAL {manual} "
-              f"(drempel {config.auto_threshold:.2f}) -> {routed_path.name}")
+              f"(drempel {config.auto_threshold:.2f}, boekjaar {config.fiscal_year}) "
+              f"-> {routed_path.name}")
 
         # 7. Review-queue
         queue = ReviewQueue.from_documents(docs)
