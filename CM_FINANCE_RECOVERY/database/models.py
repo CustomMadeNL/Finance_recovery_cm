@@ -52,6 +52,9 @@ class Document:
     contact: Optional[str] = None
     contact_number: Optional[str] = None
     amount: Optional[float] = None
+    status: Optional[str] = None      # Moneybird-status (bv. "new")
+    paid_at: Optional[str] = None     # betaaldatum, indien betaald
+    dataset: str = "documents"        # herkomst: "documents" of "inkoop"
 
     # Verrijking (analyzer)
     doc_type: str = DocType.UNKNOWN
@@ -98,6 +101,8 @@ class Document:
             contact=record.get("contact"),
             contact_number=record.get("contact_number"),
             amount=record.get("amount"),
+            status=record.get("status"),
+            paid_at=record.get("paid_at"),
         )
 
 
@@ -111,6 +116,9 @@ CREATE TABLE IF NOT EXISTS documents (
     contact        TEXT,
     contact_number TEXT,
     amount         REAL,
+    status         TEXT,
+    paid_at        TEXT,
+    dataset        TEXT,
     doc_type       TEXT,
     supplier       TEXT,
     period         TEXT,

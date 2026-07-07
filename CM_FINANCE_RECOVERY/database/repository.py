@@ -16,9 +16,9 @@ from database.models import SCHEMA, Document
 
 _COLUMNS = [
     "id", "reference", "date", "due_date", "contact", "contact_number",
-    "amount", "doc_type", "supplier", "period", "parsed_date", "ref_year",
-    "ledger_code", "ledger_name", "ledger_score", "confidence",
-    "route", "review_reason", "flags",
+    "amount", "status", "paid_at", "dataset", "doc_type", "supplier",
+    "period", "parsed_date", "ref_year", "ledger_code", "ledger_name",
+    "ledger_score", "confidence", "route", "review_reason", "flags",
 ]
 
 
@@ -44,10 +44,11 @@ class DocumentRepository:
     def _to_row(doc: Document) -> tuple:
         return (
             doc.id, doc.reference, doc.date, doc.due_date, doc.contact,
-            doc.contact_number, doc.amount, doc.doc_type, doc.supplier,
-            doc.period, doc.parsed_date, doc.ref_year, doc.ledger_code,
-            doc.ledger_name, doc.ledger_score, doc.confidence, doc.route,
-            doc.review_reason, json.dumps(doc.flags, ensure_ascii=False),
+            doc.contact_number, doc.amount, doc.status, doc.paid_at,
+            doc.dataset, doc.doc_type, doc.supplier, doc.period,
+            doc.parsed_date, doc.ref_year, doc.ledger_code, doc.ledger_name,
+            doc.ledger_score, doc.confidence, doc.route, doc.review_reason,
+            json.dumps(doc.flags, ensure_ascii=False),
         )
 
     @staticmethod

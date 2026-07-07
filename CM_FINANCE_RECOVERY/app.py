@@ -12,6 +12,7 @@ nodig. De run eindigt met `KLAAR`.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import os
 import sys
@@ -40,46 +41,64 @@ def _write_csv(path: Path, header: list[str], rows: list[list]) -> Path:
     return path
 
 
+def _amount(d: Document) -> str:
+    return f"{d.amount:.2f}" if d.amount is not None else ""
+
+
 def _report_analysis(config: Config, docs: list[Document]) -> Path:
     rows = [
-        [d.id, d.parsed_date or "", d.ref_year or "", d.reference, d.doc_type,
-         d.supplier or "", d.period or "", "|".join(d.flags)]
+        [d.dataset, d.id, d.parsed_date or "", d.ref_year or "", d.reference,
+         d.doc_type, d.supplier or "", _amount(d), d.period or "", "|".join(d.flags)]
         for d in docs
     ]
     return _write_csv(
         config.reports_dir / "document_analysis.csv",
-        ["id", "datum", "boekjaar", "referentie", "type", "leverancier", "periode", "flags"],
+        ["dataset", "id", "datum", "boekjaar", "referentie", "type",
+         "leverancier", "bedrag", "periode", "flags"],
         rows,
     )
 
 
 def _report_ledgers(config: Config, docs: list[Document]) -> Path:
     rows = [
-        [d.id, d.reference, d.doc_type, d.ledger_code or "",
-         d.ledger_name or "", f"{d.ledger_score:.3f}"]
+        [d.dataset, d.id, d.reference, d.doc_type, d.contact or "", _amount(d),
+         d.ledger_code or "", d.ledger_name or "", f"{d.ledger_score:.3f}"]
         for d in docs
     ]
     return _write_csv(
         config.reports_dir / "document_ledgers.csv",
-        ["id", "referentie", "type", "ledger_code", "ledger_name", "ledger_score"],
+        ["dataset", "id", "referentie", "type", "contact", "bedrag",
+         "ledger_code", "ledger_name", "ledger_score"],
         rows,
     )
 
 
 def _report_routed(config: Config, docs: list[Document]) -> Path:
     rows = [
-        [d.id, d.reference, d.doc_type, d.ledger_code or "",
+        [d.dataset, d.id, d.reference, d.doc_type, _amount(d), d.ledger_code or "",
          f"{d.confidence:.3f}", d.route or "", d.review_reason or ""]
         for d in docs
     ]
     return _write_csv(
         config.reports_dir / "document_routed.csv",
-        ["id", "referentie", "type", "ledger_code", "confidence", "route", "review_reason"],
+        ["dataset", "id", "referentie", "type", "bedrag", "ledger_code",
+         "confidence", "route", "review_reason"],
         rows,
     )
 
 
-def run(config: Config | None = None) -> int:
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="CM Finance Recovery pipeline")
+    parser.add_argument(
+        "--dataset",
+        choices=["documents", "inkoop", "all"],
+        default="all",
+        help="Welke dataset(s) verwerken (standaard: all).",
+    )
+    return parser
+
+
+def run(config: Config | None = None, dataset: str = "all") -> int:
     config = config or Config()
     config.ensure_dirs()
 
@@ -88,10 +107,11 @@ def run(config: Config | None = None) -> int:
     print("=" * 60)
 
     # 1. Import / sync
-    result = sync(config)
+    result = sync(config, dataset)
     docs = result.documents
+    breakdown = ", ".join(f"{k}={v}" for k, v in result.per_dataset.items())
     print(f"IMPORT   : sync via {result.source} — {result.deduped_count} documenten "
-          f"(van {result.raw_count} ruw)")
+          f"(van {result.raw_count} ruw; {breakdown})")
 
     # 2. Persistente opslag (SQLite)
     with DocumentRepository(config.database_file) as repo:
@@ -114,11 +134,18 @@ def run(config: Config | None = None) -> int:
         routed_path = _report_routed(config, docs)
         repo.save_many(docs)
 
-        auto = sum(1 for d in docs if d.route == Route.AUTO)
-        manual = sum(1 for d in docs if d.route == Route.MANUAL)
+        auto_docs = [d for d in docs if d.route == Route.AUTO]
+        auto, manual = len(auto_docs), len(docs) - len(auto_docs)
+        auto_amount = sum(d.amount for d in auto_docs if d.amount)
         print(f"ROUTING  : AUTO {auto}, MANUAL {manual} "
               f"(drempel {config.auto_threshold:.2f}, boekjaar {config.fiscal_year}) "
               f"-> {routed_path.name}")
+        for ds in sorted(result.per_dataset):
+            a = sum(1 for d in auto_docs if d.dataset == ds)
+            t = result.per_dataset[ds]
+            print(f"           {ds:<10} AUTO {a} / {t}")
+        if auto_amount:
+            print(f"           AUTO-bedrag (boekbaar): EUR {auto_amount:,.2f}")
 
         # 7. Review-queue
         queue = ReviewQueue.from_documents(docs)
@@ -134,4 +161,5 @@ def run(config: Config | None = None) -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(run())
+    args = build_parser().parse_args()
+    raise SystemExit(run(dataset=args.dataset))

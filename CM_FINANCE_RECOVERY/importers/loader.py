@@ -1,64 +1,84 @@
 """Import-/sync-stap voor de CM Finance Recovery pipeline.
 
-Standaard leest deze loader de meegeleverde Moneybird sync-JSON
-(`data/moneybird_sync.json`) — die wordt uitsluitend gelezen, nooit
-overschreven. Optioneel kan met geldige credentials + netwerk een live-sync
-worden gedraaid; die schrijft alleen bij succes een nieuwe snapshot weg.
+Twee datasets:
+  * "documents" — algemene Moneybird-documenten (`data/moneybird_sync.json`)
+  * "inkoop"    — inkoopfacturen met bedragen (`data/moneybird_inkoop.json`)
+
+De JSON-bestanden worden alleen gelezen, nooit overschreven. Optioneel kan met
+geldige credentials + netwerk een live-sync van de documenten worden gedraaid;
+die schrijft alleen bij succes een nieuwe snapshot weg.
 """
 
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
 from config import Config
 from database.models import Document
 
+DATASETS = ("documents", "inkoop", "all")
+
 
 @dataclass
 class SyncResult:
     documents: list[Document]
-    source: str          # "sync-file" of "moneybird-api"
-    sync_file: Path
+    source: str
     raw_count: int
     deduped_count: int
+    per_dataset: dict[str, int] = field(default_factory=dict)
 
 
 def _dedupe(documents: list[Document]) -> list[Document]:
-    """Verwijder documenten met een exact dubbele referentie (behoud eerste)."""
-    seen: set[str] = set()
+    """Ontdubbel per dataset.
+
+    Documenten worden op referentie (de titel) ontdubbeld — daar zijn exacte
+    dubbele titels re-uploads. Inkoopfacturen worden op hun unieke Moneybird-id
+    ontdubbeld: verschillende facturen kunnen hetzelfde referentienummer dragen,
+    dus op referentie ontdubbelen zou echte facturen weggooien.
+    """
+    seen: set[tuple[str, str]] = set()
     unique: list[Document] = []
     for doc in documents:
-        key = (doc.reference or "").strip().lower()
-        if key and key in seen:
+        if doc.dataset == "inkoop":
+            key = (doc.dataset, doc.id)
+        else:
+            key = (doc.dataset, (doc.reference or "").strip().lower())
+        if key[1] and key in seen:
             continue
-        if key:
+        if key[1]:
             seen.add(key)
         unique.append(doc)
     return unique
 
 
-def load_sync_file(path: Path | str) -> list[Document]:
-    """Lees documenten uit de Moneybird sync-JSON."""
-    path = Path(path)
+def _load_file(path: Path, dataset: str) -> list[Document]:
     if not path.exists():
-        raise FileNotFoundError(
-            f"Moneybird sync-JSON niet gevonden: {path}. "
-            "Draai eerst een sync of plaats het bestand terug."
-        )
+        return []
     with path.open(encoding="utf-8") as fh:
         payload = json.load(fh)
     records = payload.get("documents", payload if isinstance(payload, list) else [])
-    return [Document.from_sync(rec) for rec in records]
+    docs = [Document.from_sync(rec) for rec in records]
+    for doc in docs:
+        doc.dataset = dataset
+    return docs
+
+
+def load_documents(config: Config) -> list[Document]:
+    return _load_file(config.sync_file, "documents")
+
+
+def load_inkoop(config: Config) -> list[Document]:
+    return _load_file(config.inkoop_file, "inkoop")
 
 
 def _try_live_sync(config: Config) -> Optional[list[Document]]:
-    """Probeer een live Moneybird-sync. Geeft None terug als dat niet kan."""
+    """Probeer een live Moneybird-sync van de documenten. None als dat niet kan."""
     if not config.has_api_credentials():
         return None
-    try:  # requests is optioneel en het netwerk kan geblokkeerd zijn
+    try:
         import requests
     except Exception:
         return None
@@ -77,35 +97,46 @@ def _try_live_sync(config: Config) -> Optional[list[Document]]:
                 id=str(rec.get("id") or ""),
                 reference=str(rec.get("reference") or rec.get("filename") or ""),
                 date=rec.get("date"),
+                dataset="documents",
             )
             for rec in resp.json()
         ]
+        _write_snapshot(config.sync_file, docs)
         return docs
     except Exception:
-        # Netwerk geblokkeerd / policy-denial / API-fout: val stil terug op de sync-file.
         return None
 
 
-def sync(config: Config) -> SyncResult:
-    """Voer de import-/sync-stap uit en geef de documenten terug."""
-    live = _try_live_sync(config)
-    if live is not None:
-        source = "moneybird-api"
-        documents = live
-        # Live succes: snapshot bijwerken (bestaande blijft behouden bij falen).
-        _write_snapshot(config.sync_file, documents)
-    else:
-        source = "sync-file"
-        documents = load_sync_file(config.sync_file)
+def sync(config: Config, dataset: str = "all") -> SyncResult:
+    """Voer de import-/sync-stap uit voor de gekozen dataset(s)."""
+    if dataset not in DATASETS:
+        raise ValueError(f"onbekende dataset {dataset!r}; kies uit {DATASETS}")
+
+    documents: list[Document] = []
+    per_dataset: dict[str, int] = {}
+    source_parts: list[str] = []
+
+    if dataset in ("documents", "all"):
+        live = _try_live_sync(config)
+        docs = live if live is not None else load_documents(config)
+        source_parts.append("moneybird-api" if live is not None else "sync-file")
+        per_dataset["documents"] = len(docs)
+        documents += docs
+
+    if dataset in ("inkoop", "all"):
+        inkoop = load_inkoop(config)
+        source_parts.append("inkoop-file")
+        per_dataset["inkoop"] = len(inkoop)
+        documents += inkoop
 
     raw_count = len(documents)
     documents = _dedupe(documents)
     return SyncResult(
         documents=documents,
-        source=source,
-        sync_file=config.sync_file,
+        source="+".join(source_parts),
         raw_count=raw_count,
         deduped_count=len(documents),
+        per_dataset=per_dataset,
     )
 
 

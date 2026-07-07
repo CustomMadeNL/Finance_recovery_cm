@@ -1,14 +1,16 @@
 """Ledger-matching: koppel elk document aan een grootboekrekening.
 
 Statutaire documenten (btw, loonheffing, inkomstenbelasting) mappen
-deterministisch op een controlerekening. Inkoopfacturen worden op
-leveranciersnaam fuzzy gematcht aan een kostenrekening met `difflib` (stdlib).
+deterministisch op een controlerekening. Inkoopfacturen worden op de
+leveranciersnaam (het Moneybird-contact) gekoppeld aan een kostenrekening.
+
+De leverancier->grootboek-mapping hieronder is een **startset** voor
+terugkerende leveranciers; uitbreiden tot het volledige Custommade-rekeningschema
+is een aparte tuning-stap. Onbekende leveranciers krijgen een defaultrekening met
+lage zekerheid, zodat ze naar review gaan i.p.v. verkeerd auto-geboekt te worden.
 """
 
 from __future__ import annotations
-
-from difflib import SequenceMatcher
-from typing import Optional
 
 from database.models import DocType, Flag, Document
 
@@ -22,28 +24,34 @@ LEDGER_BY_TYPE: dict[str, tuple[str, str, float]] = {
     DocType.REPORT: ("4510", "Advies- en administratiekosten", 0.6),
 }
 
-# Bekende leveranciers -> kostenrekening (voor inkoopfacturen).
-SUPPLIER_LEDGERS: dict[str, tuple[str, str]] = {
-    "nordic nest": ("4600", "Kantoorbenodigdheden"),
-    "het catshuis": ("4610", "Inkoop artikelgroep"),
-    "bol.com": ("4600", "Kantoorbenodigdheden"),
-    "blokker": ("4600", "Kantoorbenodigdheden"),
-}
+# Leverancier (substring in het contact) -> (code, naam) kostenrekening.
+# Startset voor terugkerende leveranciers; uitbreiden = aparte tuning-stap.
+SUPPLIER_LEDGERS: list[tuple[str, str, str]] = [
+    ("transip", "4300", "Hosting & domeinen"),
+    ("google cloud", "4300", "Hosting & domeinen"),
+    ("moneybird", "4305", "Software & abonnementen"),
+    ("bennett's finance", "4510", "Advies- en administratiekosten"),
+    ("yellowbrick", "4310", "Betaaldienst- en transactiekosten"),
+    ("buckaroo", "4310", "Betaaldienst- en transactiekosten"),
+    ("advocaten", "4400", "Juridische kosten"),
+    ("juristen", "4400", "Juridische kosten"),
+    ("artiestenverloningen", "4020", "Inhuur & verloning artiesten"),
+    ("ikea", "4600", "Kantoorinrichting"),
+    ("nordic nest", "4600", "Kantoorbenodigdheden"),
+    ("het catshuis", "4610", "Inkoop artikelgroep"),
+    ("bol.com", "4600", "Kantoorbenodigdheden"),
+    ("blokker", "4600", "Kantoorbenodigdheden"),
+]
 
 _PURCHASE_DEFAULT = ("4000", "Inkoop / directe kosten")
 
 
-def _best_supplier_ledger(supplier: str) -> tuple[Optional[str], Optional[str], float]:
-    best_key, best_score = None, 0.0
+def _match_supplier_ledger(supplier: str) -> tuple[str, str, float] | None:
     target = supplier.lower()
-    for key in SUPPLIER_LEDGERS:
-        score = SequenceMatcher(None, target, key).ratio()
-        if score > best_score:
-            best_key, best_score = key, score
-    if best_key and best_score >= 0.6:
-        code, name = SUPPLIER_LEDGERS[best_key]
-        return code, name, round(best_score, 3)
-    return _PURCHASE_DEFAULT[0], _PURCHASE_DEFAULT[1], round(best_score, 3)
+    for key, code, name in SUPPLIER_LEDGERS:
+        if key in target:
+            return code, name, 0.9
+    return None
 
 
 def match(doc: Document) -> Document:
@@ -55,11 +63,14 @@ def match(doc: Document) -> Document:
 
     if doc.doc_type == DocType.PURCHASE_INVOICE:
         if doc.supplier:
-            code, name, score = _best_supplier_ledger(doc.supplier)
-            # Onbekende leverancier -> defaultrekening met lage zekerheid.
-            doc.ledger_score = max(0.4, score) if code != _PURCHASE_DEFAULT[0] else 0.4
-            doc.ledger_code, doc.ledger_name = code, name
+            matched = _match_supplier_ledger(doc.supplier)
+            if matched:
+                doc.ledger_code, doc.ledger_name, doc.ledger_score = matched
+            else:
+                # Bekende leverancier zonder mapping: defaultrekening, matig zeker.
+                doc.ledger_code, doc.ledger_name, doc.ledger_score = (*_PURCHASE_DEFAULT, 0.5)
         else:
+            # Geen leverancier bekend: defaultrekening, lage zekerheid.
             doc.ledger_code, doc.ledger_name, doc.ledger_score = (*_PURCHASE_DEFAULT, 0.3)
         return doc
 
