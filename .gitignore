@@ -10,9 +10,15 @@
 *.xls
 *.csv
 
-# Uitvoer
+# Uitvoer (gegenereerde reports + lokale SQLite-cache)
 output/
 CM_FINANCE_RECOVERY/output/
+reports/
+CM_FINANCE_RECOVERY/reports/
+*.db
+CM_FINANCE_RECOVERY/data/*.db
+
+# Let op: data/moneybird_sync.json is bewust WEL getrackt (input voor de pipeline).
 
 # Python
 __pycache__/

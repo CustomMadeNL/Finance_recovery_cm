@@ -1,59 +1,67 @@
-# CM Finance Recovery
+# CM Finance Recovery — v1.0
 
-Module om de achterstand aan **onverwerkte inkoopfacturen** in Moneybird op te
-schonen. De bijgeleverde export (`inkoop.xlsx`) bevat ~1.400 facturen die
-allemaal op status `new` staan: zonder gekoppelde leverancier, zonder
-betaalstatus en deels zonder bedrag, opgebouwd over ~10 jaar.
+Pipeline die de achterstand aan financiële documenten van Custommade opschoont:
+Moneybird-documenten worden ingelezen, geclassificeerd, aan een
+grootboekrekening gekoppeld, van een confidence-score voorzien en vervolgens
+gerouteerd naar **AUTO** (straight-through) of **MANUAL** (review-queue).
 
-De module leest die facturen in, **classificeert** ze in werkstapels, **matcht**
-ontbrekende leveranciers op naam, en levert een rapport. Standaard verandert hij
-niets in Moneybird (dry-run).
+Draai de volledige pipeline met één commando:
 
-## Structuur
+```bash
+python app.py
+```
 
-| Bestand | Rol |
+De run draait volledig **offline** op de meegeleverde sync-JSON
+(`data/moneybird_sync.json`) — geen netwerk, geen secrets nodig — en eindigt met
+`KLAAR`.
+
+## Architectuur
+
+```
+app.py                     # orchestrator: import -> analyse -> ledger -> confidence -> routing -> review
+config.py                  # paden + drempels (+ optionele Moneybird-credentials uit .env)
+database/
+  models.py                # Document-datamodel + SQLite-schema
+  repository.py            # persistentie (stdlib sqlite3, data/recovery.db)
+importers/
+  loader.py                # import/sync-stap (leest sync-JSON; optioneel live)
+engine/
+  analyzer.py              # classificatie + datum/periode/leverancier
+  ledger_matcher.py        # koppeling aan grootboekrekening
+  confidence.py            # confidence-score (0..1)
+  router.py                # AUTO vs. MANUAL
+  review_queue.py          # werklijst van MANUAL-documenten
+data/
+  moneybird_sync.json      # INPUT — Moneybird-documentensync (wordt behouden)
+reports/                   # OUTPUT — gegenereerde CSV's (git-ignored)
+legacy/                    # oude v0-scripts, niet meer gebruikt
+```
+
+Alle imports zijn absolute imports vanaf de projectmap; `app.py` voegt zijn
+eigen map aan `sys.path` toe, zodat `python app.py` vanuit elke werkmap draait.
+De runtime gebruikt uitsluitend de Python-standaardbibliotheek (`sqlite3`,
+`csv`, `json`, `re`, `difflib`).
+
+## Output
+
+Elke run schrijft naar `reports/`:
+
+| Bestand | Inhoud |
 |---|---|
-| `config.py` | Instellingen + secrets uit `.env` (Moneybird-token, drempels). |
-| `moneybird.py` | Datamodel `PurchaseInvoice`, Excel-loader en REST-client. |
-| `rules.py` | Classificatie: geen contact / geen bedrag / btw-aangifte / dubbel / onverwerkt. |
-| `matcher.py` | Leveranciersnaam uit referentie halen en fuzzy matchen (`rapidfuzz`). |
-| `app.py` | CLI die alles aanstuurt en een CSV-rapport schrijft. |
+| `document_analysis.csv` | type, datum, periode, leverancier, flags per document |
+| `document_ledgers.csv` | gekoppelde grootboekrekening + score |
+| `document_routed.csv` | confidence, route (AUTO/MANUAL) + reden |
+| `review_queue.csv` | de MANUAL-werklijst, hoogste confidence eerst |
 
-## Installatie
+## Optionele live Moneybird-sync
 
-```bash
-pip install -r requirements.txt
-cp .env.example .env   # vul MONEYBIRD_* in voor live gebruik
-```
+Standaard leest de loader de sync-JSON. Met geldige credentials in `.env`
+(`MONEYBIRD_ADMINISTRATION_ID`, `MONEYBIRD_API_TOKEN`) én netwerktoegang doet de
+loader een live-sync; zonder netwerk valt hij stil terug op de sync-JSON. Zie
+`.env.example`. Secrets horen nooit in de repo.
 
-## Gebruik
+## Governance
 
-Analyse van de Excel-export (geen API-token nodig):
-
-```bash
-python app.py --source excel --invoices ../inkoop.xlsx
-```
-
-Live tegen Moneybird, nog steeds dry-run (leest `.env`):
-
-```bash
-python app.py --source api
-```
-
-Live én auto-matches wegschrijven:
-
-```bash
-python app.py --source api --apply
-```
-
-De run print een samenvatting en schrijft `output/recovery_report.csv` met per
-factuur de gevonden issues en het match-resultaat.
-
-## Veiligheid & governance
-
-- **Dry-run is standaard**; alleen `--source api --apply` muteert Moneybird, en
-  dan uitsluitend `auto`-matches (score ≥ `CM_MATCH_AUTO_THRESHOLD`).
-- Secrets staan in `.env` (in `.gitignore`), nooit in de repo.
-- Conform het CM Operating System horen geëxporteerde financiële documenten
-  (`.zip`, `.xlsx`) niet in GitHub — bewaar die in Google Drive en geef het pad
-  mee via `--invoices`.
+- Geen secrets of `.env` in Git (zie `.gitignore`).
+- Geen geëxporteerde bronbestanden (`.zip`/`.xlsx`) in Git; de pipeline werkt
+  op de afgeleide `data/moneybird_sync.json` (alleen documentmetadata).
