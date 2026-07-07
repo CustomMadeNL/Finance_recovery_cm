@@ -61,6 +61,17 @@ herkende velden. Formaat: zie `data/moneybird_recognition.sample.json`. Het echt
 bestand is git-ignored (gevoelig). Voorbeeld-effect: 5 herkende leveranciers →
 inkoop-AUTO van 2 naar 7.
 
+De herkende data ophalen zodra de API bereikbaar is:
+
+```bash
+python fetch_recognition.py          # schrijft data/moneybird_recognition.json
+python app.py                        # past de verrijking toe
+```
+
+`fetch_recognition.py` haalt per inkoopfactuur de herkende leverancier + bedrag
+op (vereist `MONEYBIRD_*` in `.env`). In een afgeschermde omgeving meldt het net
+dat `moneybird.com` op de allowlist moet.
+
 ## Routing-beleid
 
 Een document gaat alleen **AUTO** (straight-through) als het (1) de
