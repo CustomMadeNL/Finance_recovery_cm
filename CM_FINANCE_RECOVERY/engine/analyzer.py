@@ -92,6 +92,14 @@ def _ref_year(reference: str, parsed_date: Optional[str]) -> Optional[int]:
     return candidate
 
 
+def _year_from_date(value: Optional[str]) -> Optional[int]:
+    """Jaar uit een ISO-datum (YYYY-MM-DD)."""
+    if not value:
+        return None
+    m = _ISO_DATE.search(value)
+    return int(m.group(1)) if m else None
+
+
 def _extract_supplier(reference: str) -> Optional[str]:
     m = _SUPPLIER.search(reference)
     if not m:
@@ -103,14 +111,25 @@ def _extract_supplier(reference: str) -> Optional[str]:
 def analyze(doc: Document) -> Document:
     """Verrijk één document met type, datum, periode, leverancier en flags."""
     ref = doc.reference or ""
+    is_invoice = doc.dataset == "inkoop"
 
-    doc.doc_type = _classify(ref)
     doc.parsed_date = _parse_date(ref, doc.date)
     doc.period = _parse_period(ref)
-    doc.ref_year = _ref_year(ref, doc.parsed_date)
 
-    if doc.doc_type == DocType.PURCHASE_INVOICE:
-        doc.supplier = _extract_supplier(ref)
+    if is_invoice:
+        # Inkoopfacturen: leverancier uit de REFERENTIE ("Factuur van X"). Het
+        # Moneybird-contactveld is bij deze onverwerkte documenten onbetrouwbaar
+        # (vaak een default-contact) en wordt daarom niet voor boeking gebruikt.
+        # Boekjaar uit de factuurdatum.
+        doc.doc_type = DocType.PURCHASE_INVOICE
+        # Voorrang: door Moneybird herkende leverancier (OCR) > referentie.
+        doc.supplier = doc.recognized_supplier or _extract_supplier(ref)
+        doc.ref_year = _year_from_date(doc.date) or _ref_year(ref, doc.parsed_date)
+    else:
+        doc.doc_type = _classify(ref)
+        doc.ref_year = _ref_year(ref, doc.parsed_date)
+        if doc.doc_type == DocType.PURCHASE_INVOICE:
+            doc.supplier = _extract_supplier(ref)
 
     # Flags
     if not doc.parsed_date:
@@ -119,8 +138,11 @@ def analyze(doc: Document) -> Document:
         doc.add_flag(Flag.MISSING_AMOUNT)
     if not doc.has_contact:
         doc.add_flag(Flag.MISSING_CONTACT)
-    if doc.doc_type == DocType.UNKNOWN or _TIMESTAMP_ONLY.match(ref) or ref.lower().startswith("file_"):
-        doc.doc_type = doc.doc_type if doc.doc_type != DocType.UNKNOWN else DocType.UNKNOWN
+    if is_invoice and not doc.supplier:
+        doc.add_flag(Flag.MISSING_SUPPLIER)
+    if not is_invoice and (
+        doc.doc_type == DocType.UNKNOWN or _TIMESTAMP_ONLY.match(ref) or ref.lower().startswith("file_")
+    ):
         doc.add_flag(Flag.UNKNOWN_TYPE)
     if doc.doc_type == DocType.VAT_SUPPLETION:
         doc.add_flag(Flag.AMBIGUOUS)  # correctie-aangifte: vraagt menselijke check

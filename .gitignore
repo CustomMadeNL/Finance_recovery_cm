@@ -26,3 +26,7 @@ __pycache__/
 .venv/
 venv/
 .pytest_cache/
+
+# Door Moneybird herkende (OCR) leverancier/bedrag = gevoelig -> niet in Git.
+# (De .sample.json met dummy-data is bewust WEL getrackt als format-voorbeeld.)
+CM_FINANCE_RECOVERY/data/moneybird_recognition.json

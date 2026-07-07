@@ -14,7 +14,7 @@ lopende boekjaar staat in `config.fiscal_year` (env `CM_FISCAL_YEAR`).
 
 from __future__ import annotations
 
-from database.models import Flag, Route, Document
+from database.models import DocType, Flag, Route, Document
 
 # Flags die AUTO altijd blokkeren (menselijke beoordeling vereist).
 _BLOCKING_FLAGS = {Flag.UNKNOWN_TYPE, Flag.AMBIGUOUS, Flag.NO_LEDGER}
@@ -38,6 +38,13 @@ def _tag_fiscal_year(doc: Document, fiscal_year: int) -> None:
         doc.add_flag(Flag.HISTORICAL)
 
 
+def _invoice_incomplete(doc: Document) -> bool:
+    """Een inkoopfactuur is niet te boeken zonder bedrag én (referentie-)leverancier."""
+    return doc.doc_type == DocType.PURCHASE_INVOICE and (
+        Flag.MISSING_AMOUNT in doc.flags or Flag.MISSING_SUPPLIER in doc.flags
+    )
+
+
 def _review_reason(doc: Document, fiscal_year: int, auto_threshold: float) -> str:
     if Flag.HISTORICAL in doc.flags:
         return f"historisch boekjaar {doc.ref_year} (< {fiscal_year})"
@@ -45,6 +52,9 @@ def _review_reason(doc: Document, fiscal_year: int, auto_threshold: float) -> st
                  Flag.DUPLICATE_SUFFIX, Flag.MISSING_DATE):
         if flag in doc.flags:
             return _REASON_BY_FLAG[flag]
+    if _invoice_incomplete(doc):
+        missing = "bedrag" if Flag.MISSING_AMOUNT in doc.flags else "leverancier (in referentie)"
+        return f"inkoopfactuur zonder {missing}"
     if Flag.NO_FISCAL_YEAR in doc.flags:
         return "geen boekjaar af te leiden uit de referentie"
     if doc.confidence < auto_threshold:
@@ -55,7 +65,7 @@ def _review_reason(doc: Document, fiscal_year: int, auto_threshold: float) -> st
 def route(doc: Document, fiscal_year: int, auto_threshold: float) -> Document:
     _tag_fiscal_year(doc, fiscal_year)
 
-    blocked = any(flag in doc.flags for flag in _BLOCKING_FLAGS)
+    blocked = any(flag in doc.flags for flag in _BLOCKING_FLAGS) or _invoice_incomplete(doc)
     current_year = doc.ref_year == fiscal_year
 
     if (

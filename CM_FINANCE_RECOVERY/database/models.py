@@ -39,6 +39,7 @@ class Flag:
     NO_LEDGER = "no_ledger"
     HISTORICAL = "historical"        # ouder dan het lopende boekjaar (recovery-backlog)
     NO_FISCAL_YEAR = "no_fiscal_year"  # geen boekjaar af te leiden uit de referentie
+    MISSING_SUPPLIER = "missing_supplier"  # geen leverancier af te leiden uit de referentie
 
 
 @dataclass
@@ -52,10 +53,16 @@ class Document:
     contact: Optional[str] = None
     contact_number: Optional[str] = None
     amount: Optional[float] = None
+    status: Optional[str] = None      # Moneybird-status (bv. "new")
+    paid_at: Optional[str] = None     # betaaldatum, indien betaald
+    dataset: str = "documents"        # herkomst: "documents" of "inkoop"
 
     # Verrijking (analyzer)
     doc_type: str = DocType.UNKNOWN
     supplier: Optional[str] = None
+    # Door Moneybird herkende leverancier (OCR). Betrouwbaarder dan de referentie;
+    # gevuld door de verrijkingsstap zodra die data beschikbaar is.
+    recognized_supplier: Optional[str] = None
     period: Optional[str] = None
     parsed_date: Optional[str] = None
     ref_year: Optional[int] = None  # expliciet boekjaar uit de referentie (niet de sync-datum)
@@ -98,6 +105,9 @@ class Document:
             contact=record.get("contact"),
             contact_number=record.get("contact_number"),
             amount=record.get("amount"),
+            status=record.get("status"),
+            paid_at=record.get("paid_at"),
+            recognized_supplier=record.get("recognized_supplier"),
         )
 
 
@@ -111,8 +121,12 @@ CREATE TABLE IF NOT EXISTS documents (
     contact        TEXT,
     contact_number TEXT,
     amount         REAL,
+    status         TEXT,
+    paid_at        TEXT,
+    dataset        TEXT,
     doc_type       TEXT,
     supplier       TEXT,
+    recognized_supplier TEXT,
     period         TEXT,
     parsed_date    TEXT,
     ref_year       INTEGER,

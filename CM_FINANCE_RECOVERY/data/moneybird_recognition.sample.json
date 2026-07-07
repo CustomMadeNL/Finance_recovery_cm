@@ -1,0 +1,9 @@
+{
+  "source": "moneybird-recognition",
+  "_comment": "Format voorbeeld. De echte data (data/moneybird_recognition.json) is git-ignored. Sleutel = Moneybird document-id; supplier = door OCR herkende leverancier; amount optioneel (vult ontbrekend bedrag aan).",
+  "documents": {
+    "489900000000000001": { "supplier": "Shell Nederland B.V.", "amount": 72.50 },
+    "489900000000000002": { "supplier": "KPN B.V." },
+    "489900000000000003": { "supplier": "Albert Heijn", "amount": 34.15 }
+  }
+}
