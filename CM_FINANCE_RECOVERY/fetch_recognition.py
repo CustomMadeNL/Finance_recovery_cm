@@ -61,11 +61,15 @@ def _amount_from(payload: dict[str, Any]) -> Optional[float]:
 
 
 def _iter_purchase_invoices(session, base: str, page_size: int = 100):
+    # Zonder expliciete filter geeft de Moneybird-API alleen de "todo"-subset
+    # terug (openstaande/te-verwerken facturen — bevestigd via de response-header
+    # `x-total-count`). Voor een recovery-traject willen we juist de volledige
+    # backlog, dus dwingen we `state:all` af.
     page = 1
     while True:
         resp = session.get(
             f"{base}/documents/purchase_invoices.json",
-            params={"page": page, "per_page": page_size},
+            params={"page": page, "per_page": page_size, "filter": "state:all"},
             timeout=30,
         )
         resp.raise_for_status()
