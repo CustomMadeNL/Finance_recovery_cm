@@ -117,10 +117,12 @@ def analyze(doc: Document) -> Document:
     doc.period = _parse_period(ref)
 
     if is_invoice:
-        # Inkoopfacturen zijn per definitie inkoopfacturen; leverancier = contact
-        # (betrouwbaarder dan de referentie), boekjaar uit de factuurdatum.
+        # Inkoopfacturen: leverancier uit de REFERENTIE ("Factuur van X"). Het
+        # Moneybird-contactveld is bij deze onverwerkte documenten onbetrouwbaar
+        # (vaak een default-contact) en wordt daarom niet voor boeking gebruikt.
+        # Boekjaar uit de factuurdatum.
         doc.doc_type = DocType.PURCHASE_INVOICE
-        doc.supplier = doc.contact or _extract_supplier(ref)
+        doc.supplier = _extract_supplier(ref)
         doc.ref_year = _year_from_date(doc.date) or _ref_year(ref, doc.parsed_date)
     else:
         doc.doc_type = _classify(ref)
@@ -135,6 +137,8 @@ def analyze(doc: Document) -> Document:
         doc.add_flag(Flag.MISSING_AMOUNT)
     if not doc.has_contact:
         doc.add_flag(Flag.MISSING_CONTACT)
+    if is_invoice and not doc.supplier:
+        doc.add_flag(Flag.MISSING_SUPPLIER)
     if not is_invoice and (
         doc.doc_type == DocType.UNKNOWN or _TIMESTAMP_ONLY.match(ref) or ref.lower().startswith("file_")
     ):

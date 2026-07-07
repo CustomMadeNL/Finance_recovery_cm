@@ -39,6 +39,7 @@ class Flag:
     NO_LEDGER = "no_ledger"
     HISTORICAL = "historical"        # ouder dan het lopende boekjaar (recovery-backlog)
     NO_FISCAL_YEAR = "no_fiscal_year"  # geen boekjaar af te leiden uit de referentie
+    MISSING_SUPPLIER = "missing_supplier"  # geen leverancier af te leiden uit de referentie
 
 
 @dataclass

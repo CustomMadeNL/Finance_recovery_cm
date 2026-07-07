@@ -31,10 +31,23 @@ python app.py --dataset documents  # alleen de algemene documenten
 python app.py --dataset inkoop     # alleen de inkoopfacturen
 ```
 
-Indicatieve uitkomst (`all`, boekjaar 2024): **AUTO 57 / MANUAL 1.380** — 4
-btw-aangiftes + 53 inkoopfacturen uit het lopende boekjaar met bedrag, bekende
-leverancier en gekoppelde grootboekrekening gaan straight-through; de rest
-(vooral historische backlog 2021–2023) gaat naar review.
+Indicatieve uitkomst (`all`, boekjaar 2024): **AUTO 6 / MANUAL 1.431** — 4
+btw-aangiftes + 2 inkoopfacturen uit het lopende boekjaar met bedrag én een
+betrouwbare leverancier gaan straight-through; de rest gaat naar review.
+
+### Leverancier & datakwaliteit
+
+De leverancier van een inkoopfactuur wordt **uit de referentie** afgeleid
+("Factuur van X"). Het Moneybird-`contact`-veld is bij deze onverwerkte
+"new"-documenten onbetrouwbaar (vaak een default-contact: bv. verzekerings- en
+grote facturen die op "TransIP B.V." staan), en wordt daarom **niet** voor
+boeking gebruikt.
+
+Gevolg: slechts ~18% van de facturen heeft een leverancier in de data, dus maar
+een klein deel kan veilig auto-boeken. Het grootboekschema levert wél voor ~145
+facturen een concreet **grootboek-voorstel** in de review-queue. Meer
+straight-through vergt eerst schonere brondata (correcte contacten/leveranciers
+uit Moneybird).
 
 ## Routing-beleid
 
@@ -59,7 +72,8 @@ importers/
   loader.py                # import/sync-stap (leest sync-JSON; optioneel live)
 engine/
   analyzer.py              # classificatie + datum/periode/leverancier + boekjaar
-  ledger_matcher.py        # koppeling aan grootboekrekening (type + leverancier)
+  ledger_schema.py         # grootboekschema + leverancier-mapping (expliciet + keyword-regels)
+  ledger_matcher.py        # koppelt document aan grootboekrekening via het schema
   confidence.py            # confidence-score (0..1)
   router.py                # AUTO vs. MANUAL (incl. boekjaar-gate)
   review_queue.py          # werklijst van MANUAL-documenten
