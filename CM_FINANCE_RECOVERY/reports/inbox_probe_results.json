@@ -1,0 +1,93 @@
+{
+  "administration_id": "174361138789615495",
+  "base_url": "https://moneybird.com/api/v2/174361138789615495",
+  "generated_at": "2026-07-07T21:44:22.576990+00:00",
+  "expected_incoming_range": [
+    1200,
+    1700
+  ],
+  "likely_inbox_endpoint": null,
+  "highest_count_endpoint": "/documents/typeless_documents.json",
+  "endpoints": [
+    {
+      "endpoint": "/documents.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    },
+    {
+      "endpoint": "/documents/synchronization.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    },
+    {
+      "endpoint": "/documents/typeless_documents.json",
+      "status": 200,
+      "count": 0,
+      "records_sample": [],
+      "error": null,
+      "note": null
+    },
+    {
+      "endpoint": "/documents/typeless_documents/synchronization.json",
+      "status": 200,
+      "count": 0,
+      "records_sample": [],
+      "error": null,
+      "note": null
+    },
+    {
+      "endpoint": "/documents/incoming_documents.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    },
+    {
+      "endpoint": "/documents/incoming_documents/synchronization.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    },
+    {
+      "endpoint": "/documents/source_documents.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    },
+    {
+      "endpoint": "/documents/source_documents/synchronization.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    },
+    {
+      "endpoint": "/uploads.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    },
+    {
+      "endpoint": "/uploads/synchronization.json",
+      "status": 404,
+      "count": null,
+      "records_sample": [],
+      "error": "404: 404 Not Found",
+      "note": null
+    }
+  ]
+}
