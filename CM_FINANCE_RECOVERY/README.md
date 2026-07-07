@@ -15,6 +15,19 @@ De run draait volledig **offline** op de meegeleverde sync-JSON
 (`data/moneybird_sync.json`) — geen netwerk, geen secrets nodig — en eindigt met
 `KLAAR`.
 
+Op de 42 meegeleverde documenten levert de pipeline **AUTO 4 / MANUAL 38**.
+
+## Routing-beleid
+
+Een document gaat alleen **AUTO** (straight-through) als het (1) de
+confidence-drempel haalt, (2) een grootboekrekening heeft, (3) geen blokkerende
+flags draagt én (4) uit het **lopende boekjaar** komt (`CM_FISCAL_YEAR`,
+standaard 2024). Dit is bewust voor een recovery-traject: alleen actuele, schone
+aangiftes worden automatisch verwerkt; historische backlog (oudere jaren) en
+documenten zonder af te leiden boekjaar gaan naar de review-queue met een
+leesbare reden. Verruim `CM_FISCAL_YEAR`/`CM_AUTO_THRESHOLD` om het
+AUTO/MANUAL-mengsel bij te stellen.
+
 ## Architectuur
 
 ```

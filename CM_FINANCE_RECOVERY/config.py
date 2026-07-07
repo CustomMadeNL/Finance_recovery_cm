@@ -46,6 +46,11 @@ class Config:
     auto_threshold: float = field(default_factory=lambda: _get_float("CM_AUTO_THRESHOLD", 0.80))
     review_threshold: float = field(default_factory=lambda: _get_float("CM_REVIEW_THRESHOLD", 0.40))
 
+    # Lopend boekjaar: alleen documenten uit dit jaar komen in aanmerking voor
+    # AUTO (straight-through). Oudere jaren zijn recovery-backlog en gaan naar
+    # review. Instelbaar via CM_FISCAL_YEAR.
+    fiscal_year: int = field(default_factory=lambda: int(_get_float("CM_FISCAL_YEAR", 2024)))
+
     # Optionele live Moneybird-sync (standaard uit; werkt alleen met netwerk+token)
     administration_id: str = field(default_factory=lambda: os.getenv("MONEYBIRD_ADMINISTRATION_ID", ""))
     api_token: str = field(default_factory=lambda: os.getenv("MONEYBIRD_API_TOKEN", ""))
