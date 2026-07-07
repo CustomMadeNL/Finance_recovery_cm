@@ -68,9 +68,13 @@ python fetch_recognition.py          # schrijft data/moneybird_recognition.json
 python app.py                        # past de verrijking toe
 ```
 
-`fetch_recognition.py` haalt per inkoopfactuur de herkende leverancier + bedrag
-op (vereist `MONEYBIRD_*` in `.env`). In een afgeschermde omgeving meldt het net
-dat `moneybird.com` op de allowlist moet.
+`fetch_recognition.py` haalt per inkoopdocument de herkende leverancier + bedrag
+op (vereist `MONEYBIRD_*` in `.env`). Het dekt de **volledige Inkoop-backlog** —
+inkoopfacturen, bonnetjes (`receipts`) én algemene documenten, met
+`filter=state:all` zodat ook verwerkte/oudere documenten meekomen (zonder die
+filter geeft de API enkel de ~42 openstaande todo's). Voorbeeld-run:
+~1480 documenten, waarvan ~1270 met een herkende leverancier. In een afgeschermde
+omgeving meldt het net dat `moneybird.com` op de allowlist moet.
 
 ## Routing-beleid
 
