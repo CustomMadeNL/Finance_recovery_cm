@@ -64,8 +64,8 @@ inkoop-AUTO van 2 naar 7.
 De herkende data ophalen zodra de API bereikbaar is:
 
 ```bash
-python fetch_recognition.py          # schrijft data/moneybird_recognition.json
-python app.py                        # past de verrijking toe
+python fetch_recognition.py --raw    # haalt data op + toont 1 ruwe respons per endpoint
+python app.py                        # past de verrijking toe → auto-boeking schaalt mee
 ```
 
 `fetch_recognition.py` haalt per inkoopdocument de herkende leverancier + bedrag
@@ -75,6 +75,16 @@ inkoopfacturen, bonnetjes (`receipts`) én algemene documenten, met
 filter geeft de API enkel de ~42 openstaande todo's). Voorbeeld-run:
 ~1480 documenten, waarvan ~1270 met een herkende leverancier. In een afgeschermde
 omgeving meldt het net dat `moneybird.com` op de allowlist moet.
+
+**OCR-veldnamen verifiëren.** Welke veldnaam Moneybird voor de herkende
+leverancier/bedrag gebruikt is niet gedocumenteerd, dus de fetcher probeert een
+prioriteitenlijst kandidaten (`_SUPPLIER_KEYS` / `_AMOUNT_KEYS`). Elke run sluit
+af met een **VELD-VERIFICATIE**-blok dat toont wélke veldnaam de waarde leverde
+(met voorbeeldwaarde) en hoe vaak. Kwam geen enkele herkende-OCR-sleutel voor,
+dan volgt een expliciete waarschuwing: bekijk dan `--raw` (dumpt het eerste
+document per endpoint) en stel `_SUPPLIER_KEYS` bij aan de echte veldnaam. Zo
+bevestig je in één oogopslag of de gegokte namen kloppen vóór de verrijking
+draait.
 
 ## Routing-beleid
 
