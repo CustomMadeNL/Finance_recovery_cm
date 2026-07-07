@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """Analysestap: classificeer documenten en extraheer datum/periode/leverancier.
 
 Werkt op de `referentie` van elk document (de titel zoals die in Moneybird
@@ -156,3 +157,49 @@ def analyze(doc: Document) -> Document:
 
 def analyze_all(documents: list[Document]) -> list[Document]:
     return [analyze(doc) for doc in documents]
+=======
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+import json
+import pandas as pd
+from config import DOCUMENT_ANALYSIS
+from database.models import connect
+
+def run():
+    conn = connect()
+    rows = conn.execute("""
+        SELECT id, contact_id, state, total_price, invoice_date, data
+        FROM purchase_invoices
+    """).fetchall()
+
+    output = []
+
+    for id_, contact_id, state, total_price, invoice_date, raw in rows:
+        data = json.loads(raw or "{}")
+        contact = data.get("contact") or {}
+
+        output.append({
+            "id": id_,
+            "type": "purchase_invoice",
+            "contact_id": contact_id or "",
+            "state": state or "",
+            "total_price": total_price or 0,
+            "date": invoice_date or "",
+            "reference": data.get("reference", ""),
+            "contact_name": contact.get("company_name", "") or contact.get("name", ""),
+            "ledger": "",
+            "status": "ANALYZED",
+        })
+
+    df = pd.DataFrame(output)
+    df.to_csv(DOCUMENT_ANALYSIS, index=False)
+    conn.close()
+
+    print(f"ANALYZE OK: {len(df)} documenten")
+    print(f"Output: {DOCUMENT_ANALYSIS}")
+>>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)

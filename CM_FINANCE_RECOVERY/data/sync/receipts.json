@@ -1,0 +1,403 @@
+[
+  {
+    "id": "490033103579907542",
+    "administration_id": "174361138789615495",
+    "contact_id": "490032215745365488",
+    "contact": {
+      "id": "490032215745365488",
+      "administration_id": "174361138789615495",
+      "company_name": "Oriental Enterprise Tong Fang Amsterdam B.V.",
+      "firstname": "",
+      "lastname": "",
+      "address1": "De Fitnesstraat 6",
+      "address2": "",
+      "zipcode": "1114A",
+      "city": "Duivendrecht",
+      "country": "NL",
+      "phone": "+31206941016",
+      "delivery_method": "Email",
+      "customer_id": "277",
+      "tax_number": "",
+      "chamber_of_commerce": "33218826",
+      "bank_account": "",
+      "is_trusted": false,
+      "max_transfer_amount": null,
+      "attention": "",
+      "email": "",
+      "email_ubl": true,
+      "send_invoices_to_attention": "",
+      "send_invoices_to_email": "",
+      "send_estimates_to_attention": "",
+      "send_estimates_to_email": "",
+      "direct_debit": false,
+      "sepa_active": false,
+      "sepa_iban": "",
+      "sepa_iban_account_name": "",
+      "sepa_bic": "",
+      "sepa_mandate_id": "",
+      "sepa_mandate_date": null,
+      "sepa_sequence_type": "RCUR",
+      "credit_card_number": "",
+      "credit_card_reference": "",
+      "credit_card_type": null,
+      "tax_number_validated_at": null,
+      "tax_number_valid": null,
+      "invoice_workflow_id": null,
+      "estimate_workflow_id": null,
+      "si_identifier": "",
+      "si_identifier_type": null,
+      "moneybird_payments_mandate": false,
+      "created_at": "2026-06-15T19:19:20.087Z",
+      "updated_at": "2026-06-15T19:19:20.087Z",
+      "version": 1781551160,
+      "sales_invoices_url": "https://moneybird.com/174361138789615495/sales_invoices/8d22d22be4189e592f892d0858137593a4b634dde48b20a8ae2414931ebeacfe/all",
+      "notes": [],
+      "custom_fields": [],
+      "contact_people": [],
+      "archived": false
+    },
+    "reference": "801240132",
+    "date": "2026-06-15",
+    "due_date": null,
+    "entry_number": 1293,
+    "state": "open",
+    "currency": "EUR",
+    "exchange_rate": "1.0",
+    "revenue_invoice": false,
+    "prices_are_incl_tax": true,
+    "origin": "email",
+    "paid_at": null,
+    "tax_number": "",
+    "total_price_excl_tax": "125.22",
+    "total_price_excl_tax_base": "125.22",
+    "total_price_incl_tax": "151.52",
+    "total_price_incl_tax_base": "151.52",
+    "created_at": "2026-06-15T19:33:26.793Z",
+    "updated_at": "2026-07-06T21:07:11.545Z",
+    "version": 1783372031,
+    "details": [
+      {
+        "id": "490033116023359267",
+        "administration_id": "174361138789615495",
+        "tax_rate_id": "174361139460704195",
+        "ledger_account_id": "491669252665771786",
+        "project_id": null,
+        "product_id": null,
+        "amount": "1",
+        "amount_decimal": "1.0",
+        "description": "Instant Noodles en Bapao",
+        "price": "151.52",
+        "period": null,
+        "row_order": 0,
+        "total_price_excl_tax_with_discount": "125.22",
+        "total_price_excl_tax_with_discount_base": "125.22",
+        "tax_report_reference": [
+          "NL/5b"
+        ],
+        "mandatory_tax_text": null,
+        "created_at": "2026-06-15T19:33:38.660Z",
+        "updated_at": "2026-07-06T21:07:11.541Z"
+      }
+    ],
+    "fiscal_allocations": [],
+    "payments": [],
+    "notes": [],
+    "attachments": [
+      {
+        "id": "490033103583053271",
+        "administration_id": "174361138789615495",
+        "attachable_id": "490033103579907542",
+        "attachable_type": "Document",
+        "filename": "2022-03-06 Factuur van Oriental Enterprise Amsterdam_ Representatiekosten.jpg",
+        "content_type": "image/jpeg",
+        "size": 684267,
+        "rotation": 0,
+        "created_at": "2026-06-15T19:33:26.796Z",
+        "updated_at": "2026-06-15T19:33:26.796Z"
+      },
+      {
+        "id": "490033103587247576",
+        "administration_id": "174361138789615495",
+        "attachable_id": "490033103579907542",
+        "attachable_type": "Document",
+        "filename": "email.eml",
+        "content_type": "message/rfc822",
+        "size": 6474,
+        "rotation": 0,
+        "created_at": "2026-06-15T19:33:26.800Z",
+        "updated_at": "2026-06-15T19:33:26.800Z"
+      }
+    ],
+    "events": [
+      {
+        "administration_id": "174361138789615495",
+        "user_id": "174361138853578633",
+        "action": "document_saved_from_email",
+        "link_entity_id": null,
+        "link_entity_type": null,
+        "data": {},
+        "created_at": "2026-06-15T19:33:26.805Z",
+        "updated_at": "2026-06-15T19:33:26.805Z"
+      },
+      {
+        "administration_id": "174361138789615495",
+        "user_id": "174361138742429573",
+        "action": "document_updated",
+        "link_entity_id": null,
+        "link_entity_type": null,
+        "data": {
+          "changes": {
+            "state": [
+              "new",
+              "open"
+            ],
+            "total_paid_base": [
+              null,
+              "0.0"
+            ],
+            "updated_at": [
+              "2026-06-15T21:33:38.663+02:00",
+              "2026-07-06T23:07:11.533+02:00"
+            ]
+          }
+        },
+        "created_at": "2026-07-06T21:07:11.548Z",
+        "updated_at": "2026-07-06T21:07:11.548Z"
+      }
+    ]
+  },
+  {
+    "id": "490032837583438946",
+    "administration_id": "174361138789615495",
+    "contact_id": "490032185341904051",
+    "contact": {
+      "id": "490032185341904051",
+      "administration_id": "174361138789615495",
+      "company_name": "Action Amsterdam",
+      "firstname": "",
+      "lastname": "",
+      "address1": "Holendrechtplein 1",
+      "address2": "",
+      "zipcode": "",
+      "city": "Amsterdam",
+      "country": "NL",
+      "phone": "",
+      "delivery_method": "Email",
+      "customer_id": "274",
+      "tax_number": "",
+      "chamber_of_commerce": "37112677",
+      "bank_account": "",
+      "is_trusted": false,
+      "max_transfer_amount": null,
+      "attention": "",
+      "email": "",
+      "email_ubl": true,
+      "send_invoices_to_attention": "",
+      "send_invoices_to_email": "",
+      "send_estimates_to_attention": "",
+      "send_estimates_to_email": "",
+      "direct_debit": false,
+      "sepa_active": false,
+      "sepa_iban": "",
+      "sepa_iban_account_name": "",
+      "sepa_bic": "",
+      "sepa_mandate_id": "",
+      "sepa_mandate_date": null,
+      "sepa_sequence_type": "RCUR",
+      "credit_card_number": "",
+      "credit_card_reference": "",
+      "credit_card_type": null,
+      "tax_number_validated_at": null,
+      "tax_number_valid": null,
+      "invoice_workflow_id": null,
+      "estimate_workflow_id": null,
+      "si_identifier": "",
+      "si_identifier_type": null,
+      "moneybird_payments_mandate": false,
+      "created_at": "2026-06-15T19:18:51.092Z",
+      "updated_at": "2026-06-15T19:18:51.092Z",
+      "version": 1781551131,
+      "sales_invoices_url": "https://moneybird.com/174361138789615495/sales_invoices/2a8e370c01f2e689d0c10591d368d5e2253a9c03134ec2dca74cf4226b5966a0/all",
+      "notes": [],
+      "custom_fields": [],
+      "contact_people": [],
+      "archived": false
+    },
+    "reference": "1395101-11106114",
+    "date": "2026-06-15",
+    "due_date": null,
+    "entry_number": 1238,
+    "state": "open",
+    "currency": "EUR",
+    "exchange_rate": "1.0",
+    "revenue_invoice": false,
+    "prices_are_incl_tax": true,
+    "origin": "email",
+    "paid_at": null,
+    "tax_number": "",
+    "total_price_excl_tax": "5.93",
+    "total_price_excl_tax_base": "5.93",
+    "total_price_incl_tax": "7.18",
+    "total_price_incl_tax_base": "7.18",
+    "created_at": "2026-06-15T19:29:13.119Z",
+    "updated_at": "2026-07-06T21:05:07.625Z",
+    "version": 1783371907,
+    "details": [
+      {
+        "id": "490032846275085411",
+        "administration_id": "174361138789615495",
+        "tax_rate_id": "174361139460704195",
+        "ledger_account_id": "491669252665771786",
+        "project_id": null,
+        "product_id": null,
+        "amount": "1",
+        "amount_decimal": "1.0",
+        "description": "Ontstopper 2x500ml",
+        "price": "7.18",
+        "period": null,
+        "row_order": 0,
+        "total_price_excl_tax_with_discount": "5.93",
+        "total_price_excl_tax_with_discount_base": "5.93",
+        "tax_report_reference": [
+          "NL/5b"
+        ],
+        "mandatory_tax_text": null,
+        "created_at": "2026-06-15T19:29:21.408Z",
+        "updated_at": "2026-07-06T21:05:07.620Z"
+      }
+    ],
+    "fiscal_allocations": [],
+    "payments": [],
+    "notes": [],
+    "attachments": [
+      {
+        "id": "490032837590778980",
+        "administration_id": "174361138789615495",
+        "attachable_id": "490032837583438946",
+        "attachable_type": "Document",
+        "filename": "2023-07-27 Factuur van  Action_ Kleine aanschaffen kantoor.png",
+        "content_type": "image/png",
+        "size": 2894399,
+        "rotation": 0,
+        "created_at": "2026-06-15T19:29:13.126Z",
+        "updated_at": "2026-06-15T19:29:13.126Z"
+      },
+      {
+        "id": "490032837598119031",
+        "administration_id": "174361138789615495",
+        "attachable_id": "490032837583438946",
+        "attachable_type": "Document",
+        "filename": "email.eml",
+        "content_type": "message/rfc822",
+        "size": 6457,
+        "rotation": 0,
+        "created_at": "2026-06-15T19:29:13.133Z",
+        "updated_at": "2026-06-15T19:29:13.133Z"
+      }
+    ],
+    "events": [
+      {
+        "administration_id": "174361138789615495",
+        "user_id": "174361138853578633",
+        "action": "document_saved_from_email",
+        "link_entity_id": null,
+        "link_entity_type": null,
+        "data": {},
+        "created_at": "2026-06-15T19:29:13.142Z",
+        "updated_at": "2026-06-15T19:29:13.142Z"
+      },
+      {
+        "administration_id": "174361138789615495",
+        "user_id": "174361138742429573",
+        "action": "document_updated",
+        "link_entity_id": null,
+        "link_entity_type": null,
+        "data": {
+          "changes": {
+            "state": [
+              "new",
+              "open"
+            ],
+            "total_paid_base": [
+              null,
+              "0.0"
+            ],
+            "updated_at": [
+              "2026-06-15T21:29:21.411+02:00",
+              "2026-07-06T23:05:07.610+02:00"
+            ]
+          }
+        },
+        "created_at": "2026-07-06T21:05:07.629Z",
+        "updated_at": "2026-07-06T21:05:07.629Z"
+      }
+    ]
+  },
+  {
+    "id": "490031828062700790",
+    "administration_id": "174361138789615495",
+    "contact_id": null,
+    "contact": null,
+    "reference": "9e308229-81e2-4723-863b-bff3ea8ec920",
+    "date": "2026-06-15",
+    "due_date": null,
+    "entry_number": 945,
+    "state": "new",
+    "currency": "EUR",
+    "exchange_rate": "1.0",
+    "revenue_invoice": false,
+    "prices_are_incl_tax": true,
+    "origin": "email",
+    "paid_at": null,
+    "tax_number": null,
+    "total_price_excl_tax": "0.0",
+    "total_price_excl_tax_base": "0.0",
+    "total_price_incl_tax": "0.0",
+    "total_price_incl_tax_base": "0.0",
+    "created_at": "2026-06-15T19:13:10.365Z",
+    "updated_at": "2026-06-15T19:13:18.194Z",
+    "version": 1781550798,
+    "details": [],
+    "fiscal_allocations": [],
+    "payments": [],
+    "notes": [],
+    "attachments": [
+      {
+        "id": "490031828065846519",
+        "administration_id": "174361138789615495",
+        "attachable_id": "490031828062700790",
+        "attachable_type": "Document",
+        "filename": "9e308229-81e2-4723-863b-bff3ea8ec920.jpg",
+        "content_type": "image/jpeg",
+        "size": 411750,
+        "rotation": 0,
+        "created_at": "2026-06-15T19:13:10.368Z",
+        "updated_at": "2026-06-15T19:13:10.368Z"
+      },
+      {
+        "id": "490031828068992248",
+        "administration_id": "174361138789615495",
+        "attachable_id": "490031828062700790",
+        "attachable_type": "Document",
+        "filename": "email.eml",
+        "content_type": "message/rfc822",
+        "size": 6444,
+        "rotation": 0,
+        "created_at": "2026-06-15T19:13:10.371Z",
+        "updated_at": "2026-06-15T19:13:10.371Z"
+      }
+    ],
+    "events": [
+      {
+        "administration_id": "174361138789615495",
+        "user_id": "174361138853578633",
+        "action": "document_saved_from_email",
+        "link_entity_id": null,
+        "link_entity_type": null,
+        "data": {},
+        "created_at": "2026-06-15T19:13:10.377Z",
+        "updated_at": "2026-06-15T19:13:10.377Z"
+      }
+    ]
+  }
+]

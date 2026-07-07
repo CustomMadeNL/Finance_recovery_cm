@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """Review-queue: verzamel de MANUAL-documenten voor menselijke afhandeling.
 
 Levert een geordende werklijst (hoogste confidence eerst, want die zijn het
@@ -58,3 +59,34 @@ class ReviewQueue:
                      "|".join(doc.flags)]
                 )
         return path
+=======
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from database.models import connect
+
+def add_review_item(item_type, object_id, reason):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("""
+        INSERT INTO review_queue (item_type, object_id, reason, status)
+        VALUES (?, ?, ?, 'OPEN')
+    """, (item_type, object_id, reason))
+    conn.commit()
+    conn.close()
+
+def list_open_reviews():
+    conn = connect()
+    rows = conn.execute("""
+        SELECT id, item_type, object_id, reason, status
+        FROM review_queue
+        WHERE status = 'OPEN'
+        ORDER BY id DESC
+    """).fetchall()
+    conn.close()
+    return rows
+>>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)

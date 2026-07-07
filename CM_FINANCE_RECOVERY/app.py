@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """CM Finance Recovery v1.0 — pipeline entrypoint.
 
 Draai de volledige pipeline met één commando:
@@ -165,3 +166,34 @@ def run(config: Config | None = None, dataset: str = "all") -> int:
 if __name__ == "__main__":
     args = build_parser().parse_args()
     raise SystemExit(run(dataset=args.dataset))
+=======
+from database.models import init_db
+from importers.loader import run as import_sync
+from engine.analyzer import run as analyze
+from engine.ledger_matcher import run as ledger_match
+from engine.router import run as route
+
+def main():
+    print("CM FINANCE RECOVERY v1.0")
+    print("=========================")
+
+    print("1. Database init")
+    init_db()
+
+    print("2. Import sync data")
+    import_sync()
+
+    print("3. Analyze")
+    analyze()
+
+    print("4. Ledger match")
+    ledger_match()
+
+    print("5. Route")
+    route()
+
+    print("KLAAR")
+
+if __name__ == "__main__":
+    main()
+>>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)

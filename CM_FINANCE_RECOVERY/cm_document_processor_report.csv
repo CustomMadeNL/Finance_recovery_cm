@@ -1,0 +1,46 @@
+document_id,soort,status,contact,datum,omschrijving,referentie,factuurnummer,bedrag_excl,btw_bedrag,btw_tarief,bedrag_incl,categorie,betaald_op,valuta,advies
+491941573346460788,purchase_invoice,new,,2026-07-06,,,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+491530214611879868,purchase_invoice,pending_payment,Moneybird B.V.,2026-07-02,Moneybird €39 abonnement,2026-524676,NL852924574B01,39.0,,174361139460704195,47.19,,,EUR,OK - kan waarschijnlijk verwerkt worden
+490032080543024453,purchase_invoice,new,,2026-06-15,583598028,583598028,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489953358130447819,purchase_invoice,new,,2026-06-14,1134-22,1134-22,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489952964117530222,purchase_invoice,new,,2026-06-14,2021-05-30 Factuur van e-domizil_ Reis- en verblijfskosten verkoop,2021-05-30 Factuur van e-domizil_ Reis- en verblijfskosten verkoop,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489952679498351756,purchase_invoice,new,,2026-06-14,1134-22,1134-22,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489952465734600502,purchase_invoice,new,,2026-06-14,Sofie sofie-booy-2022-000007,Sofie sofie-booy-2022-000007,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489952457401566230,purchase_invoice,new,,2026-06-14,sylven-music-2022-000009,sylven-music-2022-000009,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489952393029486231,purchase_invoice,new,,2026-06-14,2022-07-05 Factuur van Sylven Music_ Inkopen van diensten,2022-07-05 Factuur van Sylven Music_ Inkopen van diensten,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489951552844334108,purchase_invoice,new,,2026-06-14,2022-06-07 Factuur van Sofie Booy_ Inkopen van diensten,2022-06-07 Factuur van Sofie Booy_ Inkopen van diensten,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489951348538738237,purchase_invoice,new,,2026-06-14,YYH8263,YYH8263,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489951303030539346,purchase_invoice,new,,2026-06-14,2022-05-31 Factuur van Sylven Music_ Inkopen van diensten,2022-05-31 Factuur van Sylven Music_ Inkopen van diensten,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489951261130490945,purchase_invoice,new,,2026-06-14,2022-01-23 Factuur van bol.com b.v._ Kleine aanschaffen kantoor,2022-01-23 Factuur van bol.com b.v._ Kleine aanschaffen kantoor,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489951072381568016,purchase_invoice,new,,2026-06-14,2022-07-11 Factuur van Sofie Booy_ Inkopen van diensten,2022-07-11 Factuur van Sofie Booy_ Inkopen van diensten,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489949103006942571,purchase_invoice,new,,2026-06-14,CM_RECONSTRUCTIE_2024,CM_RECONSTRUCTIE_2024,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489948864566003099,purchase_invoice,new,,2026-06-14,CM_RECONSTRUCTIE_2024_FILLED,CM_RECONSTRUCTIE_2024_FILLED,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489948860018328751,purchase_invoice,new,,2026-06-14,CM_RECONSTRUCTIE_2024_COMPLETE,CM_RECONSTRUCTIE_2024_COMPLETE,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489791631428420830,purchase_invoice,new,,2026-06-13,13-06-2026 - 05:35:20,13-06-2026 - 05:35:20,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489791631088682047,purchase_invoice,new,,2026-06-13,13-06-2026 - 05:35:20,13-06-2026 - 05:35:20,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489791631047787572,purchase_invoice,new,,2026-06-13,13-06-2026 - 05:35:20,13-06-2026 - 05:35:20,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489791631035204647,purchase_invoice,new,,2026-06-13,13-06-2026 - 05:35:20,13-06-2026 - 05:35:20,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489791545114887797,purchase_invoice,new,TransIP B.V.,2026-06-13,13-06-2026 - 05:33:58,13-06-2026 - 05:33:58,NL812334966B01,0.0,,,0.0,,,EUR,REVIEW - ontbreekt: bedrag
+489781247743100046,purchase_invoice,new,,2026-06-13,13-06-2026 - 02:50:18,13-06-2026 - 02:50:18,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489748454468224118,purchase_invoice,new,,2026-06-12,12-06-2026 - 18:09:03,12-06-2026 - 18:09:03,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489748454439912562,purchase_invoice,new,,2026-06-12,12-06-2026 - 18:09:03,12-06-2026 - 18:09:03,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489748454430475376,purchase_invoice,new,,2026-06-12,12-06-2026 - 18:09:03,12-06-2026 - 18:09:03,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489748454418941038,purchase_invoice,new,,2026-06-12,12-06-2026 - 18:09:03,12-06-2026 - 18:09:03,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489748126050027153,purchase_invoice,new,,2026-06-12,12-06-2026 - 18:03:50,12-06-2026 - 18:03:50,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489748125852894835,purchase_invoice,new,,2026-06-12,12-06-2026 - 18:03:50,12-06-2026 - 18:03:50,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489740952856954427,purchase_invoice,new,,2026-06-12,12-06-2026 - 16:09:49,12-06-2026 - 16:09:49,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489740904981070905,purchase_invoice,new,,2026-06-12,12-06-2026 - 16:09:04,12-06-2026 - 16:09:04,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489740904966390787,purchase_invoice,new,,2026-06-12,12-06-2026 - 16:09:04,12-06-2026 - 16:09:04,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489737854516200575,purchase_invoice,new,,2026-06-12,12-06-2026 - 15:20:35,12-06-2026 - 15:20:35,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489737408127960089,purchase_invoice,new,,2026-06-12,,,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489736921512150157,purchase_invoice,new,,2026-06-12,2022-06-02 NL78INGB0006658345 01-01-2021 - 31-12-2021__,2022-06-02 NL78INGB0006658345 01-01-2021 - 31-12-2021__,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489736673203062160,purchase_invoice,new,,2026-06-12,12-06-2026 - 15:01:48,12-06-2026 - 15:01:48,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489736650388145246,purchase_invoice,new,,2026-06-12,12-06-2026 - 15:01:26,12-06-2026 - 15:01:26,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+489736573181494784,purchase_invoice,new,,2026-06-12,12-06-2026 - 15:00:12,12-06-2026 - 15:00:12,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+488874544757474649,purchase_invoice,new,,2026-06-03,01-agent-catalog,01-agent-catalog,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"
+488833815769253617,purchase_invoice,new,Moneybird B.V.,2026-06-02,Moneybird €39 abonnement,2026-437010,NL852924574B01,39.0,,174361139460704195,47.19,,,EUR,OK - kan waarschijnlijk verwerkt worden
+480066985967748905,purchase_invoice,new,Moneybird B.V.,2026-02-25,Moneybird €39 abonnement,2026-524676,NL852924574B01,39.0,,174361139460704195,47.19,,,EUR,OK - kan waarschijnlijk verwerkt worden
+490033339719223156,purchase_invoice,new,Per Sempre Toys,2026-02-03,Vintage Speelkeuken met verzending,100007758,,146.2,,174361139460704195,176.9,,,EUR,REVIEW - ontbreekt: btw/factuurnummer mogelijk ontbrekend
+490033103579907542,receipt,open,Oriental Enterprise Tong Fang Amsterdam B.V.,2026-06-15,Instant Noodles en Bapao,801240132,,125.22,,174361139460704195,151.52,,,EUR,REVIEW - ontbreekt: btw/factuurnummer mogelijk ontbrekend
+490032837583438946,receipt,open,Action Amsterdam,2026-06-15,Ontstopper 2x500ml,1395101-11106114,,5.93,,174361139460704195,7.18,,,EUR,REVIEW - ontbreekt: btw/factuurnummer mogelijk ontbrekend
+490031828062700790,receipt,new,,2026-06-15,9e308229-81e2-4723-863b-bff3ea8ec920,9e308229-81e2-4723-863b-bff3ea8ec920,,0.0,,,0.0,,,EUR,"REVIEW - ontbreekt: contact, bedrag, btw/factuurnummer mogelijk ontbrekend"

@@ -1,0 +1,6 @@
+flask
+pandas
+requests
+python-dotenv
+rapidfuzz
+openpyxl

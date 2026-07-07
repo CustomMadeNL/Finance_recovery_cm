@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """Confidence-scoring: bereken hoe zeker de pipeline is van een document.
 
 De score (0..1) combineert de ledger-zekerheid, of het type herkend is, en de
@@ -51,3 +52,32 @@ def score_all(documents: list[Document]) -> list[Document]:
     for doc in documents:
         score(doc)
     return documents
+=======
+from config import AUTO_THRESHOLD, REVIEW_THRESHOLD
+
+def score_match(row):
+    score = 0
+    reasons = []
+
+    contact = str(row.get("contact_name", "")).strip()
+    ledger = str(row.get("ledger", "")).strip()
+
+    if contact:
+        score += 50
+    else:
+        reasons.append("Geen contact")
+
+    if ledger and ledger != "REVIEW":
+        score += 50
+    else:
+        reasons.append("Geen ledger")
+
+    if score >= AUTO_THRESHOLD:
+        action = "AUTO"
+    elif score >= REVIEW_THRESHOLD:
+        action = "REVIEW"
+    else:
+        action = "MANUAL"
+
+    return {"score": score, "action": action, "reasons": reasons}
+>>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)

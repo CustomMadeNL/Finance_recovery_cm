@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CM Finance Recovery — v1.0
 
 Pipeline die de achterstand aan financiële documenten van Custommade opschoont:
@@ -152,3 +153,31 @@ loader een live-sync; zonder netwerk valt hij stil terug op de sync-JSON. Zie
 - `data/moneybird_inkoop.json` bevat leveranciersnamen en bedragen. Dit staat
   bewust in de repo als pipeline-input (in overleg); behandel de repo daarom als
   vertrouwelijk.
+=======
+# CM Finance Recovery Engine
+
+AI-assisted Moneybird recovery tool for processing historical incoming documents, supplier matching, VAT classification, ledger suggestions and future bank matching.
+
+## Current status
+- Moneybird API connected
+- 1,438 documents imported from export
+- Dashboard v0.1 working
+- Contact sync working
+- Prototype matcher working
+
+## Core principles
+- Read-only first
+- No automatic write-back without confidence threshold
+- No fuzzy-only automatic booking
+- Full audit trail
+- Batch processing before full automation
+
+## Modules
+- Analyzer
+- Vendor Engine
+- Ledger Engine
+- VAT Engine
+- Confidence Engine
+- Moneybird Client
+- Dashboard
+>>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)

@@ -1,0 +1,15 @@
+CM MONEYBIRD SPOEDVERWERKING
+============================
+
+Totaal documenten: 42
+processing_status
+REVIEW    42
+Name: count, dtype: int64
+
+Top grootboeken:
+suggested_ledger
+REVIEW                  37
+Software                 3
+Kantoorbenodigdheden     1
+Hosting                  1
+Name: count, dtype: int64

@@ -1,0 +1,1390 @@
+[
+  {
+    "id": "491669252234807027",
+    "administration_id": "174361138789615495",
+    "name": "Administratiekosten",
+    "account_type": "expenses",
+    "account_id": "46140",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:19.739Z",
+    "updated_at": "2026-07-03T20:59:19.739Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedKanBoe",
+      "name": "Boekhouding",
+      "name_english": "Accounting",
+      "reference": "4206090"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252463396602",
+    "administration_id": "174361138789615495",
+    "name": "Advieskosten",
+    "account_type": "expenses",
+    "account_id": "46370",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:19.956Z",
+    "updated_at": "2026-07-03T20:59:19.956Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAeaAdv",
+      "name": "Overige advieskosten",
+      "name_english": "Other consulting fees",
+      "reference": "4209080"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "400223657653175868",
+    "administration_id": "174361138789615495",
+    "name": "Afrondingsverschillen",
+    "account_type": "expenses",
+    "account_id": null,
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2023-09-28T12:10:44.841Z",
+    "updated_at": "2023-09-28T12:10:44.841Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAdlBov",
+      "name": "Boekingsverschillen",
+      "name_english": "Booking differences",
+      "reference": "4210060"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "400223657615427129",
+    "administration_id": "174361138789615495",
+    "name": "Algemene kosten",
+    "account_type": "expenses",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2023-09-28T12:10:44.804Z",
+    "updated_at": "2024-03-11T20:31:34.999Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAlkOal",
+      "name": "Algemene kosten",
+      "name_english": "General expenses",
+      "reference": "4215010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252328130294",
+    "administration_id": "174361138789615495",
+    "name": "Bankkosten",
+    "account_type": "expenses",
+    "account_id": "46415",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:19.826Z",
+    "updated_at": "2026-07-03T20:59:19.826Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAdlBan",
+      "name": "Bankkosten",
+      "name_english": "Bank charges",
+      "reference": "4210040"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669281569768494",
+    "administration_id": "174361138789615495",
+    "name": "Belasting op huisvesting",
+    "account_type": "expenses",
+    "account_id": "45165",
+    "parent_id": "491669281148240924",
+    "active": true,
+    "created_at": "2026-07-03T20:59:47.713Z",
+    "updated_at": "2026-07-03T20:59:47.713Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedHuiObh",
+      "name": "Overige belastingen inzake huisvesting",
+      "name_english": "Other taxes on accommodation",
+      "reference": "4201190"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413968136010",
+    "administration_id": "174361138789615495",
+    "name": "Betaalde en/of ontvangen btw",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": "174361139262523311",
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.814Z",
+    "updated_at": "2021-10-30T16:00:14.814Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchBepBtwAfo",
+      "name": "Afgedragen omzetbelasting",
+      "name_english": "Remitted Value Added Tax",
+      "reference": "1205010.13"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139262523311",
+    "administration_id": "174361138789615495",
+    "name": "Btw",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:42.018Z",
+    "updated_at": "2016-11-30T11:02:42.018Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchBepBtwOvm",
+      "name": "Overige mutaties omzetbelasting",
+      "name_english": "Other Value Added Tax adjustments",
+      "reference": "1205010.15"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001414082430798",
+    "administration_id": "174361138789615495",
+    "name": "Btw privé gebruik",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": "174361139262523311",
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.923Z",
+    "updated_at": "2021-10-30T16:00:14.923Z",
+    "allowed_document_types": [
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchBepBtwOop",
+      "name": "1d. Omzetbelasting over privégebruik",
+      "name_english": "1d. Value Added Tax on private use",
+      "reference": "1205010.05"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001414032099148",
+    "administration_id": "174361138789615495",
+    "name": "Btw vorige boekjaren",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": "174361139262523311",
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.874Z",
+    "updated_at": "2024-03-11T15:46:24.547Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchBepBtwBeg",
+      "name": "Beginbalans af te dragen omzetbelasting",
+      "name_english": "Opening balance of Value Added Tax to be remitted",
+      "reference": "1205010.01"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139266717623",
+    "administration_id": "174361138789615495",
+    "name": "Crediteuren",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T15:35:53.542Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchCreHac",
+      "name": "Handelscrediteuren nominaal",
+      "name_english": "Trade creditors nominal",
+      "reference": "1203010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139265669041",
+    "administration_id": "174361138789615495",
+    "name": "Debiteuren",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T18:13:34.384Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BVorDebHad",
+      "name": "Handelsdebiteuren nominaal",
+      "name_english": "Trade debtors nominal",
+      "reference": "1101010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "400223657409906220",
+    "administration_id": "174361138789615495",
+    "name": "Dotatie voorziening dubieuze debiteuren",
+    "account_type": "expenses",
+    "account_id": null,
+    "parent_id": "400223657233745441",
+    "active": true,
+    "created_at": "2023-09-28T12:10:44.608Z",
+    "updated_at": "2023-09-28T12:10:44.608Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedVkkDvd",
+      "name": "Dotatie voorziening dubieuze debiteuren",
+      "name_english": "Allocation provision for doubtful debts",
+      "reference": "4203160"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252731832077",
+    "administration_id": "174361138789615495",
+    "name": "Drukwerk",
+    "account_type": "expenses",
+    "account_id": "46120",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:20.213Z",
+    "updated_at": "2026-07-03T20:59:20.213Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedKanDru",
+      "name": "Drukwerk",
+      "name_english": "Printing",
+      "reference": "4206050"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669348893591365",
+    "administration_id": "174361138789615495",
+    "name": "Eten en drinken met relaties",
+    "account_type": "expenses",
+    "account_id": "45620",
+    "parent_id": "400223657233745441",
+    "active": true,
+    "created_at": "2026-07-03T21:00:51.918Z",
+    "updated_at": "2026-07-03T21:00:51.918Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedVkkRep",
+      "name": "Representatiekosten",
+      "name_english": "Entertainment expenses",
+      "reference": "4203060"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139265669040",
+    "administration_id": "174361138789615495",
+    "name": "Financiële rekeningen",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T16:11:56.590Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BLimKruSto",
+      "name": "Stortingen onderweg",
+      "name_english": "Deposits in transit",
+      "reference": "1003010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669281223738399",
+    "administration_id": "174361138789615495",
+    "name": "Gas, water en elektriciteit",
+    "account_type": "expenses",
+    "account_id": "45142",
+    "parent_id": "491669281148240924",
+    "active": true,
+    "created_at": "2026-07-03T20:59:47.382Z",
+    "updated_at": "2026-07-03T20:59:47.382Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedHuiElk",
+      "name": "Energiekosten elektra",
+      "name_english": "Energy costs electricity",
+      "reference": "4201143"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669281148240924",
+    "administration_id": "174361138789615495",
+    "name": "Huisvestingskosten",
+    "account_type": "expenses",
+    "account_id": "45185",
+    "parent_id": null,
+    "active": true,
+    "created_at": "2026-07-03T20:59:47.314Z",
+    "updated_at": "2026-07-03T20:59:47.314Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedHuiOhv",
+      "name": "Overige huisvestingskosten",
+      "name_english": "Other accommodation expenses",
+      "reference": "4201270"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139258329006",
+    "administration_id": "174361138789615495",
+    "name": "Hulprekeningen",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:42.013Z",
+    "updated_at": "2024-03-11T18:07:23.350Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BVorOvrOvk",
+      "name": "Overige vorderingen",
+      "name_english": "Other receivables",
+      "reference": "1103190"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669281501611049",
+    "administration_id": "174361138789615495",
+    "name": "Huur huisvesting",
+    "account_type": "expenses",
+    "account_id": "45105",
+    "parent_id": "491669281148240924",
+    "active": true,
+    "created_at": "2026-07-03T20:59:47.648Z",
+    "updated_at": "2026-07-03T20:59:47.648Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedHuiBeh",
+      "name": "Betaalde huur",
+      "name_english": "Paid rent",
+      "reference": "4201040"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "341166063850882252",
+    "administration_id": "174361138789615495",
+    "name": "info@custommade.agency (NL78INGB0006658345)",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": "174361139265669040",
+    "active": true,
+    "created_at": "2021-12-15T15:15:34.444Z",
+    "updated_at": "2026-06-15T22:58:31.211Z",
+    "allowed_document_types": [
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BLimBanRba",
+      "name": "Rekening-courant bank",
+      "name_english": "Bank current account",
+      "reference": "1002010"
+    },
+    "financial_account_id": "341166063809987787"
+  },
+  {
+    "id": "337001413527734074",
+    "administration_id": "174361138789615495",
+    "name": "Inkoop diensten",
+    "account_type": "direct_costs",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.394Z",
+    "updated_at": "2021-10-30T16:00:14.394Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WKprKuwKuw",
+      "name": "Kosten van uitbesteed werk",
+      "name_english": "Cost of outsourced work",
+      "reference": "7003010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413600085820",
+    "administration_id": "174361138789615495",
+    "name": "Inkoop handelsgoederen",
+    "account_type": "direct_costs",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.463Z",
+    "updated_at": "2021-10-30T16:00:14.463Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WKprInhInh",
+      "name": "Inkoopwaarde handelsgoederen",
+      "name_english": "Cost of goods purchased",
+      "reference": "7005010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252665771786",
+    "administration_id": "174361138789615495",
+    "name": "Kantoorbenodigdheden",
+    "account_type": "expenses",
+    "account_id": "46101",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:20.149Z",
+    "updated_at": "2026-07-03T20:59:20.149Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedKanKan",
+      "name": "Kantoorbenodigdheden",
+      "name_english": "Office supplies",
+      "reference": "4206010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252399433464",
+    "administration_id": "174361138789615495",
+    "name": "Kasverschillen",
+    "account_type": "expenses",
+    "account_id": "46410",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:19.895Z",
+    "updated_at": "2026-07-03T20:59:19.895Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAdlKav",
+      "name": "Kasverschillen",
+      "name_english": "Cash differences",
+      "reference": "4210030"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139267766207",
+    "administration_id": "174361138789615495",
+    "name": "Koersverschillen",
+    "account_type": "other_income_expenses",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2016-11-30T11:02:41.956Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WFbeWisWis",
+      "name": "Valutakoersverschillen",
+      "name_english": "Currency exchange differences",
+      "reference": "8407010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139266717622",
+    "administration_id": "174361138789615495",
+    "name": "Kruisposten",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": "174361139258329006",
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T16:11:56.637Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BLimKruSto",
+      "name": "Stortingen onderweg",
+      "name_english": "Deposits in transit",
+      "reference": "1003010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491938418315494410",
+    "administration_id": "174361138789615495",
+    "name": "Management Fee",
+    "account_type": "revenue",
+    "account_id": "80500",
+    "parent_id": "337001413852792646",
+    "active": true,
+    "created_at": "2026-07-06T20:17:36.515Z",
+    "updated_at": "2026-07-06T20:17:36.515Z",
+    "allowed_document_types": [
+      "sales_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WOmzNod",
+      "name": "Opbrengsten uit het verlenen van diensten",
+      "name_english": "Revenue from provision of services",
+      "reference": "8003000"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139266717626",
+    "administration_id": "174361138789615495",
+    "name": "Nog te betalen kosten",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2016-11-30T11:02:41.956Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchOpaNtb",
+      "name": "Nog te betalen andere kosten",
+      "name_english": "Other payable expenses",
+      "reference": "1210020"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139265669043",
+    "administration_id": "174361138789615495",
+    "name": "Nog te factureren omzet",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T18:53:46.801Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BVorOvaNtf",
+      "name": "Nog te factureren of nog te verzenden facturen",
+      "name_english": "Invoices not yet billed or sent",
+      "reference": "1104030"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413852792646",
+    "administration_id": "174361138789615495",
+    "name": "Omzet",
+    "account_type": "revenue",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.704Z",
+    "updated_at": "2021-10-30T16:00:14.704Z",
+    "allowed_document_types": [
+      "sales_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WOmzNooNdo",
+      "name": "Opbrengsten uit overige bronnen",
+      "name_english": "Revenue from other sources",
+      "reference": "8004040"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669281432405029",
+    "administration_id": "174361138789615495",
+    "name": "Onderhoud huisvesting",
+    "account_type": "expenses",
+    "account_id": "45125",
+    "parent_id": "491669281148240924",
+    "active": true,
+    "created_at": "2026-07-03T20:59:47.581Z",
+    "updated_at": "2026-07-03T20:59:47.581Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedHuiOng",
+      "name": "Onderhoud gebouwen",
+      "name_english": "Building maintenance",
+      "reference": "4201080"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139267766206",
+    "administration_id": "174361138789615495",
+    "name": "Ongecategoriseerde inkomsten",
+    "account_type": "revenue",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T15:36:23.022Z",
+    "allowed_document_types": [
+      "sales_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WOmzNooNdo",
+      "name": "Opbrengsten uit overige bronnen",
+      "name_english": "Revenue from other sources",
+      "reference": "8004040"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139267766205",
+    "administration_id": "174361138789615495",
+    "name": "Ongecategoriseerde uitgaven",
+    "account_type": "expenses",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T15:35:55.575Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAlkOal",
+      "name": "Algemene kosten",
+      "name_english": "General expenses",
+      "reference": "4215010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "400223657276737061",
+    "administration_id": "174361138789615495",
+    "name": "Oninbare omzet",
+    "account_type": "expenses",
+    "account_id": null,
+    "parent_id": "400223657233745441",
+    "active": true,
+    "created_at": "2023-09-28T12:10:44.481Z",
+    "updated_at": "2023-09-28T12:10:44.481Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedVkkAdd",
+      "name": "Afboeking dubieuze debiteuren",
+      "name_english": "Write-off doubtful debts",
+      "reference": "4203170"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252527359743",
+    "administration_id": "174361138789615495",
+    "name": "Opleidingskosten ondernemer",
+    "account_type": "expenses",
+    "account_id": "46801",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:20.018Z",
+    "updated_at": "2026-07-03T20:59:20.018Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAlkOal",
+      "name": "Algemene kosten",
+      "name_english": "General expenses",
+      "reference": "4215010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413740595010",
+    "administration_id": "174361138789615495",
+    "name": "Overige opbrengsten",
+    "account_type": "revenue",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.597Z",
+    "updated_at": "2021-10-30T16:00:14.597Z",
+    "allowed_document_types": [
+      "sales_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WOvbOvoOvo",
+      "name": "Overige opbrengsten niet elders genoemd",
+      "name_english": "Other revenues not elsewhere specified",
+      "reference": "8213010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413794072388",
+    "administration_id": "174361138789615495",
+    "name": "Overige schulden",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.648Z",
+    "updated_at": "2021-10-30T16:00:14.648Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchOvsOvs",
+      "name": "Overige schulden",
+      "name_english": "Other debts",
+      "reference": "1209150"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413692360512",
+    "administration_id": "174361138789615495",
+    "name": "Overige vorderingen",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.550Z",
+    "updated_at": "2024-03-11T22:04:32.705Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BVorOvrOvk",
+      "name": "Overige vorderingen",
+      "name_english": "Other receivables",
+      "reference": "1103190"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669348826482496",
+    "administration_id": "174361138789615495",
+    "name": "Reclame- en advertentiekosten",
+    "account_type": "expenses",
+    "account_id": "45601",
+    "parent_id": "400223657233745441",
+    "active": true,
+    "created_at": "2026-07-03T21:00:51.855Z",
+    "updated_at": "2026-07-03T21:00:51.855Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedVkkRea",
+      "name": "Reclame- en advertentiekosten",
+      "name_english": "Advertising and promotion costs",
+      "reference": "4203010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669348758325023",
+    "administration_id": "174361138789615495",
+    "name": "Relatiegeschenken",
+    "account_type": "expenses",
+    "account_id": "45615",
+    "parent_id": "400223657233745441",
+    "active": true,
+    "created_at": "2026-07-03T21:00:51.790Z",
+    "updated_at": "2026-07-03T21:00:51.790Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedVkkRel",
+      "name": "Relatiegeschenken",
+      "name_english": "Gifts for relations",
+      "reference": "4203040"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413645174590",
+    "administration_id": "174361138789615495",
+    "name": "Rente",
+    "account_type": "other_income_expenses",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.506Z",
+    "updated_at": "2021-10-30T16:00:14.506Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WFbeRlsRle",
+      "name": "Rentelasten overige leningen",
+      "name_english": "Interest expenses other loans",
+      "reference": "8404050"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669394091411331",
+    "administration_id": "174361138789615495",
+    "name": "ROYALTY",
+    "account_type": "revenue",
+    "account_id": "81180",
+    "parent_id": "337001413852792646",
+    "active": true,
+    "created_at": "2026-07-03T21:01:35.017Z",
+    "updated_at": "2026-07-03T21:01:35.018Z",
+    "allowed_document_types": [
+      "sales_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WOmzNooNdo",
+      "name": "Opbrengsten uit overige bronnen",
+      "name_english": "Revenue from other sources",
+      "reference": "8004040"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669281293992993",
+    "administration_id": "174361138789615495",
+    "name": "Schoonmaakkosten",
+    "account_type": "expenses",
+    "account_id": "45130",
+    "parent_id": "491669281148240924",
+    "active": true,
+    "created_at": "2026-07-03T20:59:47.449Z",
+    "updated_at": "2026-07-03T20:59:47.449Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedHuiSch",
+      "name": "Schoonmaakkosten",
+      "name_english": "Cleaning costs",
+      "reference": "4201090"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669348957554506",
+    "administration_id": "174361138789615495",
+    "name": "Sponsoring",
+    "account_type": "expenses",
+    "account_id": "45605",
+    "parent_id": "400223657233745441",
+    "active": true,
+    "created_at": "2026-07-03T21:00:51.980Z",
+    "updated_at": "2026-07-03T21:00:51.980Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedVkkKos",
+      "name": "Kosten sponsoring",
+      "name_english": "Sponsorship costs",
+      "reference": "4203020"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139266717628",
+    "administration_id": "174361138789615495",
+    "name": "Te betalen btw",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": "174361139262523311",
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2026-01-29T13:56:45.820Z",
+    "allowed_document_types": [
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchBepBtwOlo",
+      "name": "1c. Omzetbelasting leveringen/diensten belast met overige tarieven, behalve 0%",
+      "name_english": "1c. Value Added Tax on supplies/services subject to other rates, except 0%",
+      "reference": "1205010.04"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252795795227",
+    "administration_id": "174361138789615495",
+    "name": "Telefoon en internet",
+    "account_type": "expenses",
+    "account_id": "46110",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:20.273Z",
+    "updated_at": "2026-07-03T20:59:20.273Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedKanTef",
+      "name": "Telefoonkosten",
+      "name_english": "Telephone expenses",
+      "reference": "4206030"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139266717624",
+    "administration_id": "174361138789615495",
+    "name": "Te rubriceren betalingen",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T16:11:56.649Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BLimKruSto",
+      "name": "Stortingen onderweg",
+      "name_english": "Deposits in transit",
+      "reference": "1003010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139265669042",
+    "administration_id": "174361138789615495",
+    "name": "Te rubriceren ontvangen betalingen",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T16:11:56.610Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BLimKruSto",
+      "name": "Stortingen onderweg",
+      "name_english": "Deposits in transit",
+      "reference": "1003010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139265669045",
+    "administration_id": "174361138789615495",
+    "name": "Te rubriceren transacties",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": "174361139258329006",
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T16:11:56.623Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BLimKruSto",
+      "name": "Stortingen onderweg",
+      "name_english": "Deposits in transit",
+      "reference": "1003010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139266717627",
+    "administration_id": "174361138789615495",
+    "name": "Te vorderen btw",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": "174361139262523311",
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2026-01-29T13:56:45.867Z",
+    "allowed_document_types": [
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchBepBtwVoo",
+      "name": "5b. Voorbelasting",
+      "name_english": "5a. Input VAT",
+      "reference": "1205010.09"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "400223657233745441",
+    "administration_id": "174361138789615495",
+    "name": "Verkoopkosten",
+    "account_type": "expenses",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2023-09-28T12:10:44.440Z",
+    "updated_at": "2023-09-28T12:10:44.440Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedVkkOvr",
+      "name": "Overige verkoopkosten",
+      "name_english": "Other sales costs",
+      "reference": "4203220"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "350225331182896887",
+    "administration_id": "174361138789615495",
+    "name": "Verrekeningen",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": "174361139258329006",
+    "active": true,
+    "created_at": "2022-03-25T15:08:45.023Z",
+    "updated_at": "2022-03-25T15:08:45.023Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BVorTusTbt",
+      "name": "Tussenrekeningen betalingen",
+      "name_english": "Transitory account payments",
+      "reference": "1105100"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "337001413918852936",
+    "administration_id": "174361138789615495",
+    "name": "Vervoerskosten",
+    "account_type": "expenses",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2021-10-30T16:00:14.767Z",
+    "updated_at": "2024-03-11T17:32:58.865Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedTraOtr",
+      "name": "Overige transportkosten",
+      "name_english": "Other transportation costs",
+      "reference": "4205170"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669252596565765",
+    "administration_id": "174361138789615495",
+    "name": "Verzekeringen algemeen",
+    "account_type": "expenses",
+    "account_id": "46305",
+    "parent_id": "400223657615427129",
+    "active": true,
+    "created_at": "2026-07-03T20:59:20.083Z",
+    "updated_at": "2026-07-03T20:59:20.083Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedAssOva",
+      "name": "Overige assurantiepremies",
+      "name_english": "Other insurance premiums",
+      "reference": "4208020"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "491669281363199011",
+    "administration_id": "174361138789615495",
+    "name": "Verzekering huisvesting",
+    "account_type": "expenses",
+    "account_id": "45150",
+    "parent_id": "491669281148240924",
+    "active": true,
+    "created_at": "2026-07-03T20:59:47.515Z",
+    "updated_at": "2026-07-03T20:59:47.516Z",
+    "allowed_document_types": [
+      "purchase_invoice",
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "WBedHuiAoz",
+      "name": "Assurantiepremies onroerende zaak",
+      "name_english": "Property insurance premiums",
+      "reference": "4201160"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139265669044",
+    "administration_id": "174361138789615495",
+    "name": "Vooruitgefactureerde kosten",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2024-03-11T18:38:47.163Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BVorOvaVof",
+      "name": "Vooruitbetaalde facturen",
+      "name_english": "Prepaid invoices",
+      "reference": "1104010"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "174361139266717625",
+    "administration_id": "174361138789615495",
+    "name": "Vooruitgefactureerde omzet",
+    "account_type": "current_liabilities",
+    "account_id": null,
+    "parent_id": null,
+    "active": true,
+    "created_at": "2016-11-30T11:02:41.956Z",
+    "updated_at": "2016-11-30T11:02:41.956Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BSchOpaVgo",
+      "name": "Vooruitgefactureerde omzet",
+      "name_english": "Pre-invoiced revenue",
+      "reference": "1210260"
+    },
+    "financial_account_id": null
+  },
+  {
+    "id": "400223657546221108",
+    "administration_id": "174361138789615495",
+    "name": "Voorziening dubieuze debiteuren",
+    "account_type": "current_assets",
+    "account_id": null,
+    "parent_id": "174361139265669041",
+    "active": true,
+    "created_at": "2023-09-28T12:10:44.738Z",
+    "updated_at": "2023-09-28T12:10:44.738Z",
+    "allowed_document_types": [
+      "financial_mutation",
+      "general_journal_document"
+    ],
+    "taxonomy_item": {
+      "taxonomy_version": "3.5",
+      "code": "BVorDebVdd",
+      "name": "Voorziening voor oninbaarheid op vorderingen op handelsdebiteuren",
+      "name_english": "Provision for uncollectibility of trade debtors",
+      "reference": "1101030"
+    },
+    "financial_account_id": null
+  }
+]
