@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Routing: bepaal per document AUTO (straight-through) of MANUAL (review).
 
 Een document gaat alleen AUTO als:
@@ -85,37 +84,3 @@ def route(doc: Document, fiscal_year: int, auto_threshold: float) -> Document:
 
 def route_all(documents: list[Document], fiscal_year: int, auto_threshold: float) -> list[Document]:
     return [route(doc, fiscal_year, auto_threshold) for doc in documents]
-=======
-import pandas as pd
-from config import DOCUMENT_LEDGERS, DOCUMENT_ROUTED
-from engine.confidence import score_match
-from engine.review_queue import add_review_item
-
-def run():
-    df = pd.read_csv(DOCUMENT_LEDGERS).fillna("")
-
-    scores, actions, reasons_col = [], [], []
-
-    for _, row in df.iterrows():
-        result = score_match(row)
-        scores.append(result["score"])
-        actions.append(result["action"])
-        reasons = "; ".join(result["reasons"])
-        reasons_col.append(reasons)
-
-        if result["action"] != "AUTO":
-            add_review_item(result["action"], str(row.get("id", "UNKNOWN")), reasons)
-
-    df["confidence_score"] = scores
-    df["route_action"] = actions
-    df["route_reasons"] = reasons_col
-
-    df.to_csv(DOCUMENT_ROUTED, index=False)
-
-    print("ROUTING OK")
-    print(df["route_action"].value_counts())
-    print(f"Output: {DOCUMENT_ROUTED}")
-
-if __name__ == "__main__":
-    run()
->>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)

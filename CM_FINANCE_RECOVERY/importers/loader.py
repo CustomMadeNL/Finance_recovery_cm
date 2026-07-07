@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Import-/sync-stap voor de CM Finance Recovery pipeline.
 
 Twee datasets:
@@ -204,34 +203,3 @@ def _write_snapshot(path: Path, documents: list[Document]) -> None:
     }
     with path.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
-=======
-import json
-from config import SYNC_DIR
-from database.repository import Repository
-
-FILES = {
-    "contacts.json": "contacts",
-    "ledger_accounts.json": "ledger_accounts",
-    "tax_rates.json": "tax_rates",
-    "purchase_invoices.json": "purchase_invoices",
-    "receipts.json": "receipts",
-}
-
-def run():
-    repo = Repository()
-
-    for filename, table in FILES.items():
-        path = SYNC_DIR / filename
-        if not path.exists():
-            print(f"SKIP {filename}")
-            continue
-
-        with open(path, encoding="utf-8") as f:
-            data = json.load(f)
-
-        repo.save_many(table, data)
-        print(f"{table}: {len(data)} geïmporteerd")
-
-    repo.close()
-    print("IMPORT OK")
->>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)
