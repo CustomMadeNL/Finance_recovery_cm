@@ -1,0 +1,22 @@
+# Secrets
+.env
+*.env
+!.env.example
+
+# Financiële / geëxporteerde documenten horen niet in GitHub (CM governance).
+# Bewaar deze in Google Drive en geef het pad mee via --invoices.
+*.zip
+*.xlsx
+*.xls
+*.csv
+
+# Uitvoer
+output/
+CM_FINANCE_RECOVERY/output/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
