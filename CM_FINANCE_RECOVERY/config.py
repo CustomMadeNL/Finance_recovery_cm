@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Centrale configuratie voor de CM Finance Recovery v1.0 pipeline.
 
 Alle paden zijn relatief aan deze map, zodat `python app.py` overal draait.
@@ -69,23 +68,3 @@ class Config:
     def ensure_dirs(self) -> None:
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.reports_dir.mkdir(parents=True, exist_ok=True)
-=======
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parent
-DATA_DIR = ROOT / "data"
-SYNC_DIR = DATA_DIR / "sync"
-REPORTS_DIR = ROOT / "reports"
-DB_PATH = DATA_DIR / "cm_finance.db"
-
-DOCUMENT_ANALYSIS = REPORTS_DIR / "document_analysis.csv"
-DOCUMENT_MATCHED = REPORTS_DIR / "document_matched.csv"
-DOCUMENT_LEDGERS = REPORTS_DIR / "document_ledgers.csv"
-DOCUMENT_ROUTED = REPORTS_DIR / "document_routed.csv"
-
-AUTO_THRESHOLD = 95
-REVIEW_THRESHOLD = 80
-
-for p in [DATA_DIR, SYNC_DIR, REPORTS_DIR]:
-    p.mkdir(parents=True, exist_ok=True)
->>>>>>> 06917c4 (Build CM Finance Recovery v1.0 pipeline)
