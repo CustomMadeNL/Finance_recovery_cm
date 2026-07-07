@@ -41,6 +41,9 @@ class Config:
     reports_dir: Path = BASE_DIR / "reports"
     sync_file: Path = BASE_DIR / "data" / "moneybird_sync.json"       # algemene documenten
     inkoop_file: Path = BASE_DIR / "data" / "moneybird_inkoop.json"   # inkoopfacturen (met bedragen)
+    # Door Moneybird herkende (OCR) leverancier/bedrag per document-id. Optioneel:
+    # als dit bestand bestaat, verrijkt de loader de documenten ermee.
+    recognition_file: Path = BASE_DIR / "data" / "moneybird_recognition.json"
     database_file: Path = BASE_DIR / "data" / "recovery.db"
 
     # Routing-drempels (0..1)

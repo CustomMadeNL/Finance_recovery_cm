@@ -29,6 +29,7 @@ class SyncResult:
     raw_count: int
     deduped_count: int
     per_dataset: dict[str, int] = field(default_factory=dict)
+    enriched_count: int = 0
 
 
 def _dedupe(documents: list[Document]) -> list[Document]:
@@ -64,6 +65,46 @@ def _load_file(path: Path, dataset: str) -> list[Document]:
     for doc in docs:
         doc.dataset = dataset
     return docs
+
+
+def _load_recognition(path: Path) -> dict[str, dict]:
+    """Lees de door Moneybird herkende (OCR) data: document-id -> {supplier, amount}.
+
+    Ondersteunt zowel een dict (id -> record) als een lijst van records met een
+    `id`-veld. Ontbreekt het bestand, dan is er simpelweg geen verrijking.
+    """
+    if not path.exists():
+        return {}
+    with path.open(encoding="utf-8") as fh:
+        payload = json.load(fh)
+    records = payload.get("documents", payload) if isinstance(payload, dict) else payload
+    if isinstance(records, dict):
+        return {str(k): v for k, v in records.items()}
+    return {str(r.get("id")): r for r in records if r.get("id")}
+
+
+def enrich(documents: list[Document], config: Config) -> int:
+    """Verrijk documenten met de door Moneybird herkende leverancier/bedrag.
+
+    Zet `recognized_supplier` (de betrouwbare bron) en vult een ontbrekend bedrag
+    aan. Geeft het aantal verrijkte documenten terug. Zonder herkende data (geen
+    bestand) is dit een no-op, zodat de pipeline altijd blijft draaien.
+    """
+    recognition = _load_recognition(config.recognition_file)
+    if not recognition:
+        return 0
+    enriched = 0
+    for doc in documents:
+        rec = recognition.get(doc.id)
+        if not rec:
+            continue
+        supplier = rec.get("supplier") or rec.get("recognized_supplier")
+        if supplier:
+            doc.recognized_supplier = str(supplier).strip()
+            enriched += 1
+        if not doc.has_amount and rec.get("amount") is not None:
+            doc.amount = rec.get("amount")
+    return enriched
 
 
 def load_documents(config: Config) -> list[Document]:
@@ -131,12 +172,14 @@ def sync(config: Config, dataset: str = "all") -> SyncResult:
 
     raw_count = len(documents)
     documents = _dedupe(documents)
+    enriched = enrich(documents, config)
     return SyncResult(
         documents=documents,
         source="+".join(source_parts),
         raw_count=raw_count,
         deduped_count=len(documents),
         per_dataset=per_dataset,
+        enriched_count=enriched,
     )
 
 

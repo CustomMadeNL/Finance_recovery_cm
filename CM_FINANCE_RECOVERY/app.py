@@ -112,6 +112,8 @@ def run(config: Config | None = None, dataset: str = "all") -> int:
     breakdown = ", ".join(f"{k}={v}" for k, v in result.per_dataset.items())
     print(f"IMPORT   : sync via {result.source} — {result.deduped_count} documenten "
           f"(van {result.raw_count} ruw; {breakdown})")
+    if result.enriched_count:
+        print(f"ENRICH   : {result.enriched_count} documenten verrijkt met herkende leverancier (Moneybird OCR)")
 
     # 2. Persistente opslag (SQLite)
     with DocumentRepository(config.database_file) as repo:

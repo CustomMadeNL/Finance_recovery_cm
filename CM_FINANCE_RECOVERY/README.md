@@ -45,9 +45,21 @@ boeking gebruikt.
 
 Gevolg: slechts ~18% van de facturen heeft een leverancier in de data, dus maar
 een klein deel kan veilig auto-boeken. Het grootboekschema levert wél voor ~145
-facturen een concreet **grootboek-voorstel** in de review-queue. Meer
-straight-through vergt eerst schonere brondata (correcte contacten/leveranciers
-uit Moneybird).
+facturen een concreet **grootboek-voorstel** in de review-queue.
+
+### Verrijking met Moneybird-herkenning (OCR)
+
+De hefboom voor méér auto-boeking is de door Moneybird **herkende leverancier**
+(OCR) — betrouwbaarder dan zowel het contactveld als de referentie. De loader
+heeft daarvoor een verrijkingsstap: bestaat `data/moneybird_recognition.json`,
+dan zet die per document-id de `recognized_supplier` (en vult een ontbrekend
+bedrag aan). De analyzer geeft die herkende leverancier voorrang.
+
+Zo werkt straight-through mee zodra die data binnenkomt — via de Moneybird-API
+(zodra `moneybird.com` op de netwerk-allowlist staat) of een export met
+herkende velden. Formaat: zie `data/moneybird_recognition.sample.json`. Het echte
+bestand is git-ignored (gevoelig). Voorbeeld-effect: 5 herkende leveranciers →
+inkoop-AUTO van 2 naar 7.
 
 ## Routing-beleid
 

@@ -122,7 +122,8 @@ def analyze(doc: Document) -> Document:
         # (vaak een default-contact) en wordt daarom niet voor boeking gebruikt.
         # Boekjaar uit de factuurdatum.
         doc.doc_type = DocType.PURCHASE_INVOICE
-        doc.supplier = _extract_supplier(ref)
+        # Voorrang: door Moneybird herkende leverancier (OCR) > referentie.
+        doc.supplier = doc.recognized_supplier or _extract_supplier(ref)
         doc.ref_year = _year_from_date(doc.date) or _ref_year(ref, doc.parsed_date)
     else:
         doc.doc_type = _classify(ref)
